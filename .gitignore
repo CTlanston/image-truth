@@ -1,0 +1,21 @@
+# secrets
+.env
+
+# vision response cache
+.image-truth-cache/
+
+# fixture binaries (rebuild with fixtures/make_fixtures.py)
+fixtures/base/
+fixtures/cases/
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+
+# reports from local runs
+report.md
+report.json
