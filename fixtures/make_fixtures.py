@@ -190,7 +190,9 @@ def download_bases():
         if out.exists() and slug in meta:
             continue
         try:
-            hit = find_free_image(s["q"])
+            # prefer the pinned URL from a committed _meta.json so rebuilds
+            # fetch the exact images that passed visual QA
+            hit = meta.get(slug) or find_free_image(s["q"])
             if not hit:
                 print(f"  MISS  {slug}: no CC0/PD hit for '{s['q']}'")
                 continue

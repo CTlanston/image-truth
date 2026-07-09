@@ -5,7 +5,8 @@
 .image-truth-cache/
 
 # fixture binaries (rebuild with fixtures/make_fixtures.py)
-fixtures/base/
+fixtures/base/*
+!fixtures/base/_meta.json
 fixtures/cases/
 
 # python

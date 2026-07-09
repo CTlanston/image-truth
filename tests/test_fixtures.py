@@ -9,7 +9,8 @@ FIXTURES = Path(__file__).resolve().parent.parent / "fixtures"
 TRUTH = FIXTURES / "truth.json"
 
 pytestmark = pytest.mark.skipif(
-    not TRUTH.exists(), reason="fixtures not built — run fixtures/make_fixtures.py"
+    not (TRUTH.exists() and (FIXTURES / "cases").is_dir() and (FIXTURES / "base" / "_meta.json").exists()),
+    reason="fixtures not built — run fixtures/make_fixtures.py",
 )
 
 
