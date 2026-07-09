@@ -1,0 +1,2743 @@
+{
+  "seed": 42,
+  "counts": {
+    "duplicate": 30,
+    "watermark": 20,
+    "location_mismatch": 25,
+    "clean": 25,
+    "caption_mismatch": 20
+  },
+  "bundles": 3,
+  "cases": [
+    {
+      "id": "dup_000",
+      "category": "duplicate",
+      "base": "us-capitol",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_000/original.jpg",
+          "claimed_location": "United States Capitol, Washington, D.C.",
+          "caption": "a white domed neoclassical government building",
+          "page": "dup_000-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_000/variant_resize.jpg",
+          "claimed_location": "United States Capitol, Washington, D.C.",
+          "caption": "a white domed neoclassical government building",
+          "page": "dup_000-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize"
+      }
+    },
+    {
+      "id": "dup_001",
+      "category": "duplicate",
+      "base": "machu-picchu",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_001/original.jpg",
+          "claimed_location": "Machu Picchu, Peru",
+          "caption": "stone ruins on a green mountain ridge",
+          "page": "dup_001-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_001/variant_crop.jpg",
+          "claimed_location": "Machu Picchu, Peru",
+          "caption": "stone ruins on a green mountain ridge",
+          "page": "dup_001-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop"
+      }
+    },
+    {
+      "id": "dup_002",
+      "category": "duplicate",
+      "base": "dubai-skyline",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_002/original.jpg",
+          "claimed_location": "Dubai, United Arab Emirates",
+          "caption": "a supertall skyscraper above a city",
+          "page": "dup_002-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_002/variant_reencode.jpg",
+          "claimed_location": "Dubai, United Arab Emirates",
+          "caption": "a supertall skyscraper above a city",
+          "page": "dup_002-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by reencode"
+      }
+    },
+    {
+      "id": "dup_003",
+      "category": "duplicate",
+      "base": "colosseum",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_003/original.jpg",
+          "claimed_location": "Colosseum, Rome, Italy",
+          "caption": "an ancient elliptical stone amphitheatre",
+          "page": "dup_003-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_003/variant_color.jpg",
+          "claimed_location": "Colosseum, Rome, Italy",
+          "caption": "an ancient elliptical stone amphitheatre",
+          "page": "dup_003-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by color"
+      }
+    },
+    {
+      "id": "dup_004",
+      "category": "duplicate",
+      "base": "bryce-canyon",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_004/original.jpg",
+          "claimed_location": "Bryce Canyon National Park, Utah",
+          "caption": "orange rock spires in a natural amphitheater",
+          "page": "dup_004-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_004/variant_resize_reencode.jpg",
+          "claimed_location": "Bryce Canyon National Park, Utah",
+          "caption": "orange rock spires in a natural amphitheater",
+          "page": "dup_004-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize+reencode"
+      }
+    },
+    {
+      "id": "dup_005",
+      "category": "duplicate",
+      "base": "arches-utah",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_005/original.jpg",
+          "claimed_location": "Arches National Park, Utah",
+          "caption": "a freestanding natural red rock arch",
+          "page": "dup_005-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_005/variant_crop_color.jpg",
+          "claimed_location": "Arches National Park, Utah",
+          "caption": "a freestanding natural red rock arch",
+          "page": "dup_005-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop+color"
+      }
+    },
+    {
+      "id": "dup_006",
+      "category": "duplicate",
+      "base": "antelope-canyon",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_006/original.jpg",
+          "claimed_location": "Antelope Canyon, Arizona",
+          "caption": "narrow sandstone slot canyon with light beams",
+          "page": "dup_006-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_006/variant_resize.jpg",
+          "claimed_location": "Antelope Canyon, Arizona",
+          "caption": "narrow sandstone slot canyon with light beams",
+          "page": "dup_006-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize"
+      }
+    },
+    {
+      "id": "dup_007",
+      "category": "duplicate",
+      "base": "venice-canal",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_007/original.jpg",
+          "claimed_location": "Venice, Italy",
+          "caption": "a canal lined with old buildings and boats",
+          "page": "dup_007-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_007/variant_crop.jpg",
+          "claimed_location": "Venice, Italy",
+          "caption": "a canal lined with old buildings and boats",
+          "page": "dup_007-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop"
+      }
+    },
+    {
+      "id": "dup_008",
+      "category": "duplicate",
+      "base": "statue-liberty",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_008/original.jpg",
+          "claimed_location": "Statue of Liberty, New York Harbor",
+          "caption": "a green copper statue holding a torch",
+          "page": "dup_008-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_008/variant_reencode.jpg",
+          "claimed_location": "Statue of Liberty, New York Harbor",
+          "caption": "a green copper statue holding a torch",
+          "page": "dup_008-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by reencode"
+      }
+    },
+    {
+      "id": "dup_009",
+      "category": "duplicate",
+      "base": "neuschwanstein",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_009/original.jpg",
+          "claimed_location": "Neuschwanstein Castle, Bavaria, Germany",
+          "caption": "a white fairy-tale castle on a forested hill",
+          "page": "dup_009-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_009/variant_color.jpg",
+          "claimed_location": "Neuschwanstein Castle, Bavaria, Germany",
+          "caption": "a white fairy-tale castle on a forested hill",
+          "page": "dup_009-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by color"
+      }
+    },
+    {
+      "id": "dup_010",
+      "category": "duplicate",
+      "base": "kinkakuji",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_010/original.jpg",
+          "claimed_location": "Kinkaku-ji, Kyoto, Japan",
+          "caption": "a gold-leafed pavilion beside a pond",
+          "page": "dup_010-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_010/variant_resize_reencode.jpg",
+          "claimed_location": "Kinkaku-ji, Kyoto, Japan",
+          "caption": "a gold-leafed pavilion beside a pond",
+          "page": "dup_010-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize+reencode"
+      }
+    },
+    {
+      "id": "dup_011",
+      "category": "duplicate",
+      "base": "sahara-dunes",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_011/original.jpg",
+          "claimed_location": "Sahara Desert, Morocco",
+          "caption": "an aerial view of rippled orange sand dunes in a desert",
+          "page": "dup_011-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_011/variant_crop_color.jpg",
+          "claimed_location": "Sahara Desert, Morocco",
+          "caption": "an aerial view of rippled orange sand dunes in a desert",
+          "page": "dup_011-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop+color"
+      }
+    },
+    {
+      "id": "dup_012",
+      "category": "duplicate",
+      "base": "death-valley",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_012/original.jpg",
+          "claimed_location": "Death Valley, California",
+          "caption": "arid desert basin with dunes",
+          "page": "dup_012-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_012/variant_resize.jpg",
+          "claimed_location": "Death Valley, California",
+          "caption": "arid desert basin with dunes",
+          "page": "dup_012-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize"
+      }
+    },
+    {
+      "id": "dup_013",
+      "category": "duplicate",
+      "base": "eiffel-tower",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_013/original.jpg",
+          "claimed_location": "Eiffel Tower, Paris, France",
+          "caption": "a tall iron lattice tower",
+          "page": "dup_013-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_013/variant_crop.jpg",
+          "claimed_location": "Eiffel Tower, Paris, France",
+          "caption": "a tall iron lattice tower",
+          "page": "dup_013-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop"
+      }
+    },
+    {
+      "id": "dup_014",
+      "category": "duplicate",
+      "base": "monument-valley",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_014/original.jpg",
+          "claimed_location": "Monument Valley, Utah",
+          "caption": "red sandstone buttes on a desert plain",
+          "page": "dup_014-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_014/variant_reencode.jpg",
+          "claimed_location": "Monument Valley, Utah",
+          "caption": "red sandstone buttes on a desert plain",
+          "page": "dup_014-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by reencode"
+      }
+    },
+    {
+      "id": "dup_015",
+      "category": "duplicate",
+      "base": "shibuya",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_015/original.jpg",
+          "claimed_location": "Shibuya Crossing, Tokyo, Japan",
+          "caption": "a crowded urban pedestrian crossing",
+          "page": "dup_015-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_015/variant_color.jpg",
+          "claimed_location": "Shibuya Crossing, Tokyo, Japan",
+          "caption": "a crowded urban pedestrian crossing",
+          "page": "dup_015-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by color"
+      }
+    },
+    {
+      "id": "dup_016",
+      "category": "duplicate",
+      "base": "old-faithful",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_016/original.jpg",
+          "claimed_location": "Yellowstone National Park, Wyoming",
+          "caption": "a tall geyser erupting steam and water",
+          "page": "dup_016-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_016/variant_resize_reencode.jpg",
+          "claimed_location": "Yellowstone National Park, Wyoming",
+          "caption": "a tall geyser erupting steam and water",
+          "page": "dup_016-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize+reencode"
+      }
+    },
+    {
+      "id": "dup_017",
+      "category": "duplicate",
+      "base": "mount-rushmore",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_017/original.jpg",
+          "claimed_location": "Mount Rushmore, South Dakota",
+          "caption": "four giant presidential faces carved into a granite cliff",
+          "page": "dup_017-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_017/variant_crop_color.jpg",
+          "claimed_location": "Mount Rushmore, South Dakota",
+          "caption": "four giant presidential faces carved into a granite cliff",
+          "page": "dup_017-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop+color"
+      }
+    },
+    {
+      "id": "dup_018",
+      "category": "duplicate",
+      "base": "mount-fuji",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_018/original.jpg",
+          "claimed_location": "Mount Fuji, Japan",
+          "caption": "a snow-capped volcanic cone with aircraft flying past",
+          "page": "dup_018-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_018/variant_resize.jpg",
+          "claimed_location": "Mount Fuji, Japan",
+          "caption": "a snow-capped volcanic cone with aircraft flying past",
+          "page": "dup_018-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize"
+      }
+    },
+    {
+      "id": "dup_019",
+      "category": "duplicate",
+      "base": "uluru",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_019/original.jpg",
+          "claimed_location": "Uluru, Northern Territory, Australia",
+          "caption": "a huge red monolith rock at sunset",
+          "page": "dup_019-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_019/variant_crop.jpg",
+          "claimed_location": "Uluru, Northern Territory, Australia",
+          "caption": "a huge red monolith rock at sunset",
+          "page": "dup_019-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop"
+      }
+    },
+    {
+      "id": "dup_020",
+      "category": "duplicate",
+      "base": "tropical-beach",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_020/original.jpg",
+          "claimed_location": "Kauai, Hawaii",
+          "caption": "a sandy beach with palm trees and turquoise water",
+          "page": "dup_020-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_020/variant_reencode.jpg",
+          "claimed_location": "Kauai, Hawaii",
+          "caption": "a sandy beach with palm trees and turquoise water",
+          "page": "dup_020-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by reencode"
+      }
+    },
+    {
+      "id": "dup_021",
+      "category": "duplicate",
+      "base": "hollywood-sign",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_021/original.jpg",
+          "claimed_location": "Hollywood Sign, Los Angeles, California",
+          "caption": "large white letters on a scrubby hillside",
+          "page": "dup_021-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_021/variant_color.jpg",
+          "claimed_location": "Hollywood Sign, Los Angeles, California",
+          "caption": "large white letters on a scrubby hillside",
+          "page": "dup_021-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by color"
+      }
+    },
+    {
+      "id": "dup_022",
+      "category": "duplicate",
+      "base": "lake-tahoe",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_022/original.jpg",
+          "claimed_location": "Lake Tahoe, California/Nevada",
+          "caption": "a clear blue mountain lake with boulders",
+          "page": "dup_022-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_022/variant_resize_reencode.jpg",
+          "claimed_location": "Lake Tahoe, California/Nevada",
+          "caption": "a clear blue mountain lake with boulders",
+          "page": "dup_022-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize+reencode"
+      }
+    },
+    {
+      "id": "dup_023",
+      "category": "duplicate",
+      "base": "rio-panorama",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_023/original.jpg",
+          "claimed_location": "Rio de Janeiro, Brazil",
+          "caption": "an aerial view of a coastal city and bay with mountains",
+          "page": "dup_023-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_023/variant_crop_color.jpg",
+          "claimed_location": "Rio de Janeiro, Brazil",
+          "caption": "an aerial view of a coastal city and bay with mountains",
+          "page": "dup_023-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop+color"
+      }
+    },
+    {
+      "id": "dup_024",
+      "category": "duplicate",
+      "base": "pyramids-giza",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_024/original.jpg",
+          "claimed_location": "Pyramids of Giza, Egypt",
+          "caption": "large stone pyramids in the desert",
+          "page": "dup_024-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_024/variant_resize.jpg",
+          "claimed_location": "Pyramids of Giza, Egypt",
+          "caption": "large stone pyramids in the desert",
+          "page": "dup_024-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize"
+      }
+    },
+    {
+      "id": "dup_025",
+      "category": "duplicate",
+      "base": "mont-saint-michel",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_025/original.jpg",
+          "claimed_location": "Mont Saint-Michel, Normandy, France",
+          "caption": "an island abbey rising above tidal flats",
+          "page": "dup_025-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_025/variant_crop.jpg",
+          "claimed_location": "Mont Saint-Michel, Normandy, France",
+          "caption": "an island abbey rising above tidal flats",
+          "page": "dup_025-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop"
+      }
+    },
+    {
+      "id": "dup_026",
+      "category": "duplicate",
+      "base": "brooklyn-bridge",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_026/original.jpg",
+          "claimed_location": "Brooklyn Bridge, New York City",
+          "caption": "a stone-towered suspension bridge with cables",
+          "page": "dup_026-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_026/variant_reencode.jpg",
+          "claimed_location": "Brooklyn Bridge, New York City",
+          "caption": "a stone-towered suspension bridge with cables",
+          "page": "dup_026-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by reencode"
+      }
+    },
+    {
+      "id": "dup_027",
+      "category": "duplicate",
+      "base": "great-wall",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_027/original.jpg",
+          "claimed_location": "Great Wall, Mutianyu, China",
+          "caption": "a stone wall snaking over green mountains",
+          "page": "dup_027-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_027/variant_color.jpg",
+          "claimed_location": "Great Wall, Mutianyu, China",
+          "caption": "a stone wall snaking over green mountains",
+          "page": "dup_027-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by color"
+      }
+    },
+    {
+      "id": "dup_028",
+      "category": "duplicate",
+      "base": "palm-drive",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_028/original.jpg",
+          "claimed_location": "Los Angeles, California",
+          "caption": "a street lined with tall palm trees",
+          "page": "dup_028-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_028/variant_resize_reencode.jpg",
+          "claimed_location": "Los Angeles, California",
+          "caption": "a street lined with tall palm trees",
+          "page": "dup_028-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by resize+reencode"
+      }
+    },
+    {
+      "id": "dup_029",
+      "category": "duplicate",
+      "base": "stonehenge",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/dup_029/original.jpg",
+          "claimed_location": "Stonehenge, Wiltshire, England",
+          "caption": "a prehistoric circle of standing stones in a field",
+          "page": "dup_029-page-a.html",
+          "slot": "hero"
+        },
+        {
+          "image": "cases/dup_029/variant_crop_color.jpg",
+          "claimed_location": "Stonehenge, Wiltshire, England",
+          "caption": "a prehistoric circle of standing stones in a field",
+          "page": "dup_029-page-b.html",
+          "slot": "gallery-1"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c1",
+        "note": "derived by crop+color"
+      }
+    },
+    {
+      "id": "wm_000",
+      "category": "watermark",
+      "base": "yosemite",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_000/corner.jpg",
+          "claimed_location": "Yosemite Valley, California",
+          "caption": "granite cliffs above a forested valley",
+          "page": "wm_000-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic corner watermark"
+      }
+    },
+    {
+      "id": "wm_001",
+      "category": "watermark",
+      "base": "grand-canyon",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_001/diagonal.jpg",
+          "claimed_location": "Grand Canyon, Arizona",
+          "caption": "a vast layered red rock canyon",
+          "page": "wm_001-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic diagonal watermark"
+      }
+    },
+    {
+      "id": "wm_002",
+      "category": "watermark",
+      "base": "amsterdam-canal",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_002/tile.jpg",
+          "claimed_location": "Amsterdam, Netherlands",
+          "caption": "houseboats moored along a tree-lined canal with old buildings",
+          "page": "wm_002-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic tile watermark"
+      }
+    },
+    {
+      "id": "wm_003",
+      "category": "watermark",
+      "base": "santa-monica-pier",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_003/corner.jpg",
+          "claimed_location": "Santa Monica Pier, California",
+          "caption": "a pier with a ferris wheel by the ocean",
+          "page": "wm_003-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic corner watermark"
+      }
+    },
+    {
+      "id": "wm_004",
+      "category": "watermark",
+      "base": "niagara-falls",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_004/diagonal.jpg",
+          "claimed_location": "Niagara Falls, Ontario/New York",
+          "caption": "a massive curved waterfall with mist",
+          "page": "wm_004-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic diagonal watermark"
+      }
+    },
+    {
+      "id": "wm_005",
+      "category": "watermark",
+      "base": "golden-gate",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_005/tile.jpg",
+          "claimed_location": "Golden Gate Bridge, San Francisco, California",
+          "caption": "a sandy beach with people and a red bridge tower rising from fog over a bay",
+          "page": "wm_005-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic tile watermark"
+      }
+    },
+    {
+      "id": "wm_006",
+      "category": "watermark",
+      "base": "grand-prismatic",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_006/corner.jpg",
+          "claimed_location": "Yellowstone National Park, Wyoming",
+          "caption": "a rainbow-colored hot spring with steam",
+          "page": "wm_006-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic corner watermark"
+      }
+    },
+    {
+      "id": "wm_007",
+      "category": "watermark",
+      "base": "tower-bridge",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_007/diagonal.jpg",
+          "claimed_location": "Tower Bridge, London, England",
+          "caption": "a bascule bridge with two towers over a river",
+          "page": "wm_007-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic diagonal watermark"
+      }
+    },
+    {
+      "id": "wm_008",
+      "category": "watermark",
+      "base": "space-needle",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_008/tile.jpg",
+          "claimed_location": "Space Needle, Seattle, Washington",
+          "caption": "a futuristic observation tower with a saucer top",
+          "page": "wm_008-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic tile watermark"
+      }
+    },
+    {
+      "id": "wm_009",
+      "category": "watermark",
+      "base": "matterhorn",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_009/corner.jpg",
+          "claimed_location": "Matterhorn, Zermatt, Switzerland",
+          "caption": "a sharp pyramid-shaped snowy alpine peak",
+          "page": "wm_009-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic corner watermark"
+      }
+    },
+    {
+      "id": "wm_010",
+      "category": "watermark",
+      "base": "st-basils",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_010/diagonal.jpg",
+          "claimed_location": "Saint Basil's Cathedral, Moscow, Russia",
+          "caption": "a cathedral with colorful onion domes",
+          "page": "wm_010-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic diagonal watermark"
+      }
+    },
+    {
+      "id": "wm_011",
+      "category": "watermark",
+      "base": "times-square",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_011/tile.jpg",
+          "claimed_location": "Times Square, New York City",
+          "caption": "a busy intersection with giant billboards",
+          "page": "wm_011-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic tile watermark"
+      }
+    },
+    {
+      "id": "wm_012",
+      "category": "watermark",
+      "base": "banff-lake",
+      "bundle": 0,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_012/corner.jpg",
+          "claimed_location": "Moraine Lake, Banff, Alberta, Canada",
+          "caption": "a turquoise glacial lake below rocky peaks",
+          "page": "wm_012-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic corner watermark"
+      }
+    },
+    {
+      "id": "wm_013",
+      "category": "watermark",
+      "base": "lake-tahoe",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_013/diagonal.jpg",
+          "claimed_location": "Lake Tahoe, California/Nevada",
+          "caption": "a clear blue mountain lake with boulders",
+          "page": "wm_013-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic diagonal watermark"
+      }
+    },
+    {
+      "id": "wm_014",
+      "category": "watermark",
+      "base": "dubai-skyline",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_014/tile.jpg",
+          "claimed_location": "Dubai, United Arab Emirates",
+          "caption": "a supertall skyscraper above a city",
+          "page": "wm_014-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic tile watermark"
+      }
+    },
+    {
+      "id": "wm_015",
+      "category": "watermark",
+      "base": "machu-picchu",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_015/corner.jpg",
+          "claimed_location": "Machu Picchu, Peru",
+          "caption": "stone ruins on a green mountain ridge",
+          "page": "wm_015-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic corner watermark"
+      }
+    },
+    {
+      "id": "wm_016",
+      "category": "watermark",
+      "base": "tropical-beach",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_016/diagonal.jpg",
+          "claimed_location": "Kauai, Hawaii",
+          "caption": "a sandy beach with palm trees and turquoise water",
+          "page": "wm_016-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic diagonal watermark"
+      }
+    },
+    {
+      "id": "wm_017",
+      "category": "watermark",
+      "base": "tower-bridge",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_017/tile.jpg",
+          "claimed_location": "Tower Bridge, London, England",
+          "caption": "a bascule bridge with two towers over a river",
+          "page": "wm_017-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic tile watermark"
+      }
+    },
+    {
+      "id": "wm_018",
+      "category": "watermark",
+      "base": "mont-saint-michel",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_018/corner.jpg",
+          "claimed_location": "Mont Saint-Michel, Normandy, France",
+          "caption": "an island abbey rising above tidal flats",
+          "page": "wm_018-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic corner watermark"
+      }
+    },
+    {
+      "id": "wm_019",
+      "category": "watermark",
+      "base": "shibuya",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/wm_019/diagonal.jpg",
+          "claimed_location": "Shibuya Crossing, Tokyo, Japan",
+          "caption": "a crowded urban pedestrian crossing",
+          "page": "wm_019-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c2",
+        "note": "synthetic diagonal watermark"
+      }
+    },
+    {
+      "id": "loc_000",
+      "category": "location_mismatch",
+      "base": "golden-gate",
+      "bundle": 1,
+      "hard": true,
+      "entries": [
+        {
+          "image": "cases/loc_000/photo.jpg",
+          "claimed_location": "Brooklyn Bridge, New York City",
+          "caption": "a sandy beach with people and a red bridge tower rising from fog over a bay",
+          "page": "loc_000-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Golden Gate Bridge, San Francisco, California labeled Brooklyn Bridge, New York City"
+      }
+    },
+    {
+      "id": "loc_001",
+      "category": "location_mismatch",
+      "base": "tower-bridge",
+      "bundle": 2,
+      "hard": true,
+      "entries": [
+        {
+          "image": "cases/loc_001/photo.jpg",
+          "claimed_location": "Golden Gate Bridge, San Francisco, California",
+          "caption": "a bascule bridge with two towers over a river",
+          "page": "loc_001-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Tower Bridge, London, England labeled Golden Gate Bridge, San Francisco, California"
+      }
+    },
+    {
+      "id": "loc_002",
+      "category": "location_mismatch",
+      "base": "venice-canal",
+      "bundle": 1,
+      "hard": true,
+      "entries": [
+        {
+          "image": "cases/loc_002/photo.jpg",
+          "claimed_location": "Amsterdam, Netherlands",
+          "caption": "a canal lined with old buildings and boats",
+          "page": "loc_002-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Venice, Italy labeled Amsterdam, Netherlands"
+      }
+    },
+    {
+      "id": "loc_003",
+      "category": "location_mismatch",
+      "base": "matterhorn",
+      "bundle": 1,
+      "hard": true,
+      "entries": [
+        {
+          "image": "cases/loc_003/photo.jpg",
+          "claimed_location": "Mount Fuji, Japan",
+          "caption": "a sharp pyramid-shaped snowy alpine peak",
+          "page": "loc_003-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Matterhorn, Zermatt, Switzerland labeled Mount Fuji, Japan"
+      }
+    },
+    {
+      "id": "loc_004",
+      "category": "location_mismatch",
+      "base": "palm-drive",
+      "bundle": 1,
+      "hard": true,
+      "entries": [
+        {
+          "image": "cases/loc_004/photo.jpg",
+          "claimed_location": "Santa Monica Pier, California",
+          "caption": "a street lined with tall palm trees",
+          "page": "loc_004-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Los Angeles, California labeled Santa Monica Pier, California"
+      }
+    },
+    {
+      "id": "loc_005",
+      "category": "location_mismatch",
+      "base": "st-basils",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_005/photo.jpg",
+          "claimed_location": "Neuschwanstein Castle, Bavaria, Germany",
+          "caption": "a cathedral with colorful onion domes",
+          "page": "loc_005-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Saint Basil's Cathedral, Moscow, Russia labeled Neuschwanstein Castle, Bavaria, Germany"
+      }
+    },
+    {
+      "id": "loc_006",
+      "category": "location_mismatch",
+      "base": "death-valley",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_006/photo.jpg",
+          "claimed_location": "Golden Gate Bridge, San Francisco, California",
+          "caption": "arid desert basin with dunes",
+          "page": "loc_006-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Death Valley, California labeled Golden Gate Bridge, San Francisco, California"
+      }
+    },
+    {
+      "id": "loc_007",
+      "category": "location_mismatch",
+      "base": "neuschwanstein",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_007/photo.jpg",
+          "claimed_location": "Space Needle, Seattle, Washington",
+          "caption": "a white fairy-tale castle on a forested hill",
+          "page": "loc_007-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Neuschwanstein Castle, Bavaria, Germany labeled Space Needle, Seattle, Washington"
+      }
+    },
+    {
+      "id": "loc_008",
+      "category": "location_mismatch",
+      "base": "arches-utah",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_008/photo.jpg",
+          "claimed_location": "Brooklyn Bridge, New York City",
+          "caption": "a freestanding natural red rock arch",
+          "page": "loc_008-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Arches National Park, Utah labeled Brooklyn Bridge, New York City"
+      }
+    },
+    {
+      "id": "loc_009",
+      "category": "location_mismatch",
+      "base": "yosemite",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_009/photo.jpg",
+          "claimed_location": "Death Valley, California",
+          "caption": "granite cliffs above a forested valley",
+          "page": "loc_009-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Yosemite Valley, California labeled Death Valley, California"
+      }
+    },
+    {
+      "id": "loc_010",
+      "category": "location_mismatch",
+      "base": "bryce-canyon",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_010/photo.jpg",
+          "claimed_location": "Great Wall, Mutianyu, China",
+          "caption": "orange rock spires in a natural amphitheater",
+          "page": "loc_010-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Bryce Canyon National Park, Utah labeled Great Wall, Mutianyu, China"
+      }
+    },
+    {
+      "id": "loc_011",
+      "category": "location_mismatch",
+      "base": "us-capitol",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_011/photo.jpg",
+          "claimed_location": "Pyramids of Giza, Egypt",
+          "caption": "a white domed neoclassical government building",
+          "page": "loc_011-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of United States Capitol, Washington, D.C. labeled Pyramids of Giza, Egypt"
+      }
+    },
+    {
+      "id": "loc_012",
+      "category": "location_mismatch",
+      "base": "santa-monica-pier",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_012/photo.jpg",
+          "claimed_location": "Brooklyn Bridge, New York City",
+          "caption": "a pier with a ferris wheel by the ocean",
+          "page": "loc_012-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Santa Monica Pier, California labeled Brooklyn Bridge, New York City"
+      }
+    },
+    {
+      "id": "loc_013",
+      "category": "location_mismatch",
+      "base": "mount-fuji",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_013/photo.jpg",
+          "claimed_location": "Los Angeles, California",
+          "caption": "a snow-capped volcanic cone with aircraft flying past",
+          "page": "loc_013-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Mount Fuji, Japan labeled Los Angeles, California"
+      }
+    },
+    {
+      "id": "loc_014",
+      "category": "location_mismatch",
+      "base": "statue-liberty",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_014/photo.jpg",
+          "claimed_location": "Space Needle, Seattle, Washington",
+          "caption": "a green copper statue holding a torch",
+          "page": "loc_014-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Statue of Liberty, New York Harbor labeled Space Needle, Seattle, Washington"
+      }
+    },
+    {
+      "id": "loc_015",
+      "category": "location_mismatch",
+      "base": "rio-panorama",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_015/photo.jpg",
+          "claimed_location": "Lake Tahoe, California/Nevada",
+          "caption": "an aerial view of a coastal city and bay with mountains",
+          "page": "loc_015-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Rio de Janeiro, Brazil labeled Lake Tahoe, California/Nevada"
+      }
+    },
+    {
+      "id": "loc_016",
+      "category": "location_mismatch",
+      "base": "space-needle",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_016/photo.jpg",
+          "claimed_location": "Amsterdam, Netherlands",
+          "caption": "a futuristic observation tower with a saucer top",
+          "page": "loc_016-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Space Needle, Seattle, Washington labeled Amsterdam, Netherlands"
+      }
+    },
+    {
+      "id": "loc_017",
+      "category": "location_mismatch",
+      "base": "brooklyn-bridge",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_017/photo.jpg",
+          "claimed_location": "Times Square, New York City",
+          "caption": "a stone-towered suspension bridge with cables",
+          "page": "loc_017-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Brooklyn Bridge, New York City labeled Times Square, New York City"
+      }
+    },
+    {
+      "id": "loc_018",
+      "category": "location_mismatch",
+      "base": "hollywood-sign",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_018/photo.jpg",
+          "claimed_location": "Yosemite Valley, California",
+          "caption": "large white letters on a scrubby hillside",
+          "page": "loc_018-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Hollywood Sign, Los Angeles, California labeled Yosemite Valley, California"
+      }
+    },
+    {
+      "id": "loc_019",
+      "category": "location_mismatch",
+      "base": "mount-rushmore",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_019/photo.jpg",
+          "claimed_location": "Dubai, United Arab Emirates",
+          "caption": "four giant presidential faces carved into a granite cliff",
+          "page": "loc_019-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Mount Rushmore, South Dakota labeled Dubai, United Arab Emirates"
+      }
+    },
+    {
+      "id": "loc_020",
+      "category": "location_mismatch",
+      "base": "monument-valley",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_020/photo.jpg",
+          "claimed_location": "Shibuya Crossing, Tokyo, Japan",
+          "caption": "red sandstone buttes on a desert plain",
+          "page": "loc_020-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Monument Valley, Utah labeled Shibuya Crossing, Tokyo, Japan"
+      }
+    },
+    {
+      "id": "loc_021",
+      "category": "location_mismatch",
+      "base": "grand-canyon",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_021/photo.jpg",
+          "claimed_location": "Space Needle, Seattle, Washington",
+          "caption": "a vast layered red rock canyon",
+          "page": "loc_021-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Grand Canyon, Arizona labeled Space Needle, Seattle, Washington"
+      }
+    },
+    {
+      "id": "loc_022",
+      "category": "location_mismatch",
+      "base": "amsterdam-canal",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_022/photo.jpg",
+          "claimed_location": "Machu Picchu, Peru",
+          "caption": "houseboats moored along a tree-lined canal with old buildings",
+          "page": "loc_022-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Amsterdam, Netherlands labeled Machu Picchu, Peru"
+      }
+    },
+    {
+      "id": "loc_023",
+      "category": "location_mismatch",
+      "base": "old-faithful",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_023/photo.jpg",
+          "claimed_location": "Grand Canyon, Arizona",
+          "caption": "a tall geyser erupting steam and water",
+          "page": "loc_023-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Yellowstone National Park, Wyoming labeled Grand Canyon, Arizona"
+      }
+    },
+    {
+      "id": "loc_024",
+      "category": "location_mismatch",
+      "base": "pyramids-giza",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/loc_024/photo.jpg",
+          "claimed_location": "Death Valley, California",
+          "caption": "large stone pyramids in the desert",
+          "page": "loc_024-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c3",
+        "note": "photo of Pyramids of Giza, Egypt labeled Death Valley, California"
+      }
+    },
+    {
+      "id": "clean_000",
+      "category": "clean",
+      "base": "times-square",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_000/photo.jpg",
+          "claimed_location": "Times Square, New York City",
+          "caption": "a busy intersection with giant billboards",
+          "page": "clean_000-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_001",
+      "category": "clean",
+      "base": "grand-prismatic",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_001/photo.jpg",
+          "claimed_location": "Yellowstone National Park, Wyoming",
+          "caption": "a rainbow-colored hot spring with steam",
+          "page": "clean_001-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_002",
+      "category": "clean",
+      "base": "stonehenge",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_002/photo.jpg",
+          "claimed_location": "Stonehenge, Wiltshire, England",
+          "caption": "a prehistoric circle of standing stones in a field",
+          "page": "clean_002-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_003",
+      "category": "clean",
+      "base": "eiffel-tower",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_003/photo.jpg",
+          "claimed_location": "Eiffel Tower, Paris, France",
+          "caption": "a tall iron lattice tower",
+          "page": "clean_003-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_004",
+      "category": "clean",
+      "base": "colosseum",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_004/photo.jpg",
+          "claimed_location": "Colosseum, Rome, Italy",
+          "caption": "an ancient elliptical stone amphitheatre",
+          "page": "clean_004-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_005",
+      "category": "clean",
+      "base": "great-wall",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_005/photo.jpg",
+          "claimed_location": "Great Wall, Mutianyu, China",
+          "caption": "a stone wall snaking over green mountains",
+          "page": "clean_005-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_006",
+      "category": "clean",
+      "base": "banff-lake",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_006/photo.jpg",
+          "claimed_location": "Moraine Lake, Banff, Alberta, Canada",
+          "caption": "a turquoise glacial lake below rocky peaks",
+          "page": "clean_006-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_007",
+      "category": "clean",
+      "base": "uluru",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_007/photo.jpg",
+          "claimed_location": "Uluru, Northern Territory, Australia",
+          "caption": "a huge red monolith rock at sunset",
+          "page": "clean_007-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_008",
+      "category": "clean",
+      "base": "antelope-canyon",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_008/photo.jpg",
+          "claimed_location": "Antelope Canyon, Arizona",
+          "caption": "narrow sandstone slot canyon with light beams",
+          "page": "clean_008-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_009",
+      "category": "clean",
+      "base": "sahara-dunes",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_009/photo.jpg",
+          "claimed_location": "Sahara Desert, Morocco",
+          "caption": "an aerial view of rippled orange sand dunes in a desert",
+          "page": "clean_009-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_010",
+      "category": "clean",
+      "base": "niagara-falls",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_010/photo.jpg",
+          "claimed_location": "Niagara Falls, Ontario/New York",
+          "caption": "a massive curved waterfall with mist",
+          "page": "clean_010-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_011",
+      "category": "clean",
+      "base": "kinkakuji",
+      "bundle": 1,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_011/photo.jpg",
+          "claimed_location": "Kinkaku-ji, Kyoto, Japan",
+          "caption": "a gold-leafed pavilion beside a pond",
+          "page": "clean_011-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_012",
+      "category": "clean",
+      "base": "antelope-canyon",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_012/photo.jpg",
+          "claimed_location": "Antelope Canyon, Arizona",
+          "caption": "narrow sandstone slot canyon with light beams",
+          "page": "clean_012-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_013",
+      "category": "clean",
+      "base": "dubai-skyline",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_013/photo.jpg",
+          "claimed_location": "Dubai, United Arab Emirates",
+          "caption": "a supertall skyscraper above a city",
+          "page": "clean_013-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_014",
+      "category": "clean",
+      "base": "old-faithful",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_014/photo.jpg",
+          "claimed_location": "Yellowstone National Park, Wyoming",
+          "caption": "a tall geyser erupting steam and water",
+          "page": "clean_014-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_015",
+      "category": "clean",
+      "base": "mount-fuji",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_015/photo.jpg",
+          "claimed_location": "Mount Fuji, Japan",
+          "caption": "a snow-capped volcanic cone with aircraft flying past",
+          "page": "clean_015-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_016",
+      "category": "clean",
+      "base": "machu-picchu",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_016/photo.jpg",
+          "claimed_location": "Machu Picchu, Peru",
+          "caption": "stone ruins on a green mountain ridge",
+          "page": "clean_016-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_017",
+      "category": "clean",
+      "base": "brooklyn-bridge",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_017/photo.jpg",
+          "claimed_location": "Brooklyn Bridge, New York City",
+          "caption": "a stone-towered suspension bridge with cables",
+          "page": "clean_017-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_018",
+      "category": "clean",
+      "base": "mont-saint-michel",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_018/photo.jpg",
+          "claimed_location": "Mont Saint-Michel, Normandy, France",
+          "caption": "an island abbey rising above tidal flats",
+          "page": "clean_018-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_019",
+      "category": "clean",
+      "base": "death-valley",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_019/photo.jpg",
+          "claimed_location": "Death Valley, California",
+          "caption": "arid desert basin with dunes",
+          "page": "clean_019-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_020",
+      "category": "clean",
+      "base": "eiffel-tower",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_020/photo.jpg",
+          "claimed_location": "Eiffel Tower, Paris, France",
+          "caption": "a tall iron lattice tower",
+          "page": "clean_020-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_021",
+      "category": "clean",
+      "base": "venice-canal",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_021/photo.jpg",
+          "claimed_location": "Venice, Italy",
+          "caption": "a canal lined with old buildings and boats",
+          "page": "clean_021-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_022",
+      "category": "clean",
+      "base": "colosseum",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_022/photo.jpg",
+          "claimed_location": "Colosseum, Rome, Italy",
+          "caption": "an ancient elliptical stone amphitheatre",
+          "page": "clean_022-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_023",
+      "category": "clean",
+      "base": "statue-liberty",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_023/photo.jpg",
+          "claimed_location": "Statue of Liberty, New York Harbor",
+          "caption": "a green copper statue holding a torch",
+          "page": "clean_023-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "clean_024",
+      "category": "clean",
+      "base": "pyramids-giza",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/clean_024/photo.jpg",
+          "claimed_location": "Pyramids of Giza, Egypt",
+          "caption": "large stone pyramids in the desert",
+          "page": "clean_024-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "KEEP",
+        "check": null,
+        "note": "control \u2014 must not reject"
+      }
+    },
+    {
+      "id": "cap_000",
+      "category": "caption_mismatch",
+      "base": "times-square",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_000/photo.jpg",
+          "claimed_location": "Times Square, New York City",
+          "caption": "a tall iron lattice tower",
+          "page": "cap_000-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes eiffel-tower, image is times-square"
+      }
+    },
+    {
+      "id": "cap_001",
+      "category": "caption_mismatch",
+      "base": "golden-gate",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_001/photo.jpg",
+          "claimed_location": "Golden Gate Bridge, San Francisco, California",
+          "caption": "a futuristic observation tower with a saucer top",
+          "page": "cap_001-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes space-needle, image is golden-gate"
+      }
+    },
+    {
+      "id": "cap_002",
+      "category": "caption_mismatch",
+      "base": "sahara-dunes",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_002/photo.jpg",
+          "claimed_location": "Sahara Desert, Morocco",
+          "caption": "a rainbow-colored hot spring with steam",
+          "page": "cap_002-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes grand-prismatic, image is sahara-dunes"
+      }
+    },
+    {
+      "id": "cap_003",
+      "category": "caption_mismatch",
+      "base": "kinkakuji",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_003/photo.jpg",
+          "claimed_location": "Kinkaku-ji, Kyoto, Japan",
+          "caption": "a green copper statue holding a torch",
+          "page": "cap_003-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes statue-liberty, image is kinkakuji"
+      }
+    },
+    {
+      "id": "cap_004",
+      "category": "caption_mismatch",
+      "base": "st-basils",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_004/photo.jpg",
+          "claimed_location": "Saint Basil's Cathedral, Moscow, Russia",
+          "caption": "large stone pyramids in the desert",
+          "page": "cap_004-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes pyramids-giza, image is st-basils"
+      }
+    },
+    {
+      "id": "cap_005",
+      "category": "caption_mismatch",
+      "base": "great-wall",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_005/photo.jpg",
+          "claimed_location": "Great Wall, Mutianyu, China",
+          "caption": "a prehistoric circle of standing stones in a field",
+          "page": "cap_005-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes stonehenge, image is great-wall"
+      }
+    },
+    {
+      "id": "cap_006",
+      "category": "caption_mismatch",
+      "base": "yosemite",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_006/photo.jpg",
+          "claimed_location": "Yosemite Valley, California",
+          "caption": "a rainbow-colored hot spring with steam",
+          "page": "cap_006-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes grand-prismatic, image is yosemite"
+      }
+    },
+    {
+      "id": "cap_007",
+      "category": "caption_mismatch",
+      "base": "monument-valley",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_007/photo.jpg",
+          "claimed_location": "Monument Valley, Utah",
+          "caption": "an aerial view of a coastal city and bay with mountains",
+          "page": "cap_007-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes rio-panorama, image is monument-valley"
+      }
+    },
+    {
+      "id": "cap_008",
+      "category": "caption_mismatch",
+      "base": "us-capitol",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_008/photo.jpg",
+          "claimed_location": "United States Capitol, Washington, D.C.",
+          "caption": "a white fairy-tale castle on a forested hill",
+          "page": "cap_008-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes neuschwanstein, image is us-capitol"
+      }
+    },
+    {
+      "id": "cap_009",
+      "category": "caption_mismatch",
+      "base": "santa-monica-pier",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_009/photo.jpg",
+          "claimed_location": "Santa Monica Pier, California",
+          "caption": "a green copper statue holding a torch",
+          "page": "cap_009-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes statue-liberty, image is santa-monica-pier"
+      }
+    },
+    {
+      "id": "cap_010",
+      "category": "caption_mismatch",
+      "base": "shibuya",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_010/photo.jpg",
+          "claimed_location": "Shibuya Crossing, Tokyo, Japan",
+          "caption": "arid desert basin with dunes",
+          "page": "cap_010-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes death-valley, image is shibuya"
+      }
+    },
+    {
+      "id": "cap_011",
+      "category": "caption_mismatch",
+      "base": "lake-tahoe",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_011/photo.jpg",
+          "claimed_location": "Lake Tahoe, California/Nevada",
+          "caption": "a gold-leafed pavilion beside a pond",
+          "page": "cap_011-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes kinkakuji, image is lake-tahoe"
+      }
+    },
+    {
+      "id": "cap_012",
+      "category": "caption_mismatch",
+      "base": "banff-lake",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_012/photo.jpg",
+          "claimed_location": "Moraine Lake, Banff, Alberta, Canada",
+          "caption": "a white fairy-tale castle on a forested hill",
+          "page": "cap_012-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes neuschwanstein, image is banff-lake"
+      }
+    },
+    {
+      "id": "cap_013",
+      "category": "caption_mismatch",
+      "base": "amsterdam-canal",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_013/photo.jpg",
+          "claimed_location": "Amsterdam, Netherlands",
+          "caption": "a sandy beach with palm trees and turquoise water",
+          "page": "cap_013-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes tropical-beach, image is amsterdam-canal"
+      }
+    },
+    {
+      "id": "cap_014",
+      "category": "caption_mismatch",
+      "base": "niagara-falls",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_014/photo.jpg",
+          "claimed_location": "Niagara Falls, Ontario/New York",
+          "caption": "large white letters on a scrubby hillside",
+          "page": "cap_014-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes hollywood-sign, image is niagara-falls"
+      }
+    },
+    {
+      "id": "cap_015",
+      "category": "caption_mismatch",
+      "base": "rio-panorama",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_015/photo.jpg",
+          "claimed_location": "Rio de Janeiro, Brazil",
+          "caption": "large white letters on a scrubby hillside",
+          "page": "cap_015-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes hollywood-sign, image is rio-panorama"
+      }
+    },
+    {
+      "id": "cap_016",
+      "category": "caption_mismatch",
+      "base": "arches-utah",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_016/photo.jpg",
+          "claimed_location": "Arches National Park, Utah",
+          "caption": "orange rock spires in a natural amphitheater",
+          "page": "cap_016-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes bryce-canyon, image is arches-utah"
+      }
+    },
+    {
+      "id": "cap_017",
+      "category": "caption_mismatch",
+      "base": "uluru",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_017/photo.jpg",
+          "claimed_location": "Uluru, Northern Territory, Australia",
+          "caption": "a stone-towered suspension bridge with cables",
+          "page": "cap_017-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes brooklyn-bridge, image is uluru"
+      }
+    },
+    {
+      "id": "cap_018",
+      "category": "caption_mismatch",
+      "base": "hollywood-sign",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_018/photo.jpg",
+          "claimed_location": "Hollywood Sign, Los Angeles, California",
+          "caption": "a stone-towered suspension bridge with cables",
+          "page": "cap_018-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes brooklyn-bridge, image is hollywood-sign"
+      }
+    },
+    {
+      "id": "cap_019",
+      "category": "caption_mismatch",
+      "base": "bryce-canyon",
+      "bundle": 2,
+      "hard": false,
+      "entries": [
+        {
+          "image": "cases/cap_019/photo.jpg",
+          "claimed_location": "Bryce Canyon National Park, Utah",
+          "caption": "a massive curved waterfall with mist",
+          "page": "cap_019-page.html",
+          "slot": "hero"
+        }
+      ],
+      "expected": {
+        "verdict": "REJECT",
+        "check": "c4",
+        "note": "caption describes niagara-falls, image is bryce-canyon"
+      }
+    }
+  ]
+}
