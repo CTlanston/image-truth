@@ -1,0 +1,12 @@
+{
+ "dup_000": "REJECT",
+ "dup_001": "REJECT",
+ "wm_000": "REJECT",
+ "wm_001": "REJECT",
+ "loc_000": "REJECT",
+ "loc_001": "REJECT",
+ "clean_000": "KEEP",
+ "clean_001": "KEEP",
+ "cap_002": "REJECT",
+ "cap_003": "REJECT"
+}
