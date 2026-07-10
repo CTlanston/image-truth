@@ -235,3 +235,32 @@ badge reflects this offline core; the full 120-case G3 + vision runs locally
 snippet, Actions + MIT badges), QUICKSTART.md (install → audit in <5 min,
 copy-paste Actions workflow, IMAGE_CREDITS.md compatibility note), LICENSE
 (MIT), examples/ (G4 audit artifacts).
+
+## RELEASED — v1.0.0 · 2026-07-10
+
+```
+$ gh repo create CTlanston/image-truth --public --source=. --push
+https://github.com/CTlanston/image-truth
+
+$ gh run view <ci> --json conclusion
+conclusion: success                       # Actions badge green
+
+$ git tag -a v1.0.0 && git push origin v1.0.0
+* [new tag]  v1.0.0 -> v1.0.0
+
+$ gh release create v1.0.0
+https://github.com/CTlanston/image-truth/releases/tag/v1.0.0
+```
+
+**DONE DEFINITION — all met:**
+- [x] G1–G4 green with evidence (above)
+- [x] 360 case-evaluations logged (metrics/e2e_results.json); accuracy 1.0;
+      dup-detection 1.0; clean-control false-reject 0.0
+- [x] G4 rediscovers the d625272157b7 cross-page duplicate unaided (+ a live
+      byte-identical potato-chip dup, + location/aesthetic findings matching
+      the site's own audit)
+- [x] Public repo live, Actions badge green, README + QUICKSTART + SOURCES.md
+      complete
+- [x] v1.0.0 tagged; GitHub Release published
+
+Repo: https://github.com/CTlanston/image-truth
