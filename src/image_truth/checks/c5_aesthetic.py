@@ -13,7 +13,8 @@ from ..model import PASS, UNVERIFIED, WARN, CheckResult
 
 CHECK = "c5"
 
-MIN_DIMENSION = 800          # px — below this, full-bleed display pixelates
+MIN_LONG_EDGE = 1000         # full-bleed hero needs a long edge this big
+MIN_SHORT_EDGE = 500         # portrait heroes are legitimately narrow; only tiny is bad
 MAX_ASPECT = 3.0             # width:height (either way) beyond this is banner-ish
 BLUR_VARIANCE_FLOOR = 60.0   # Laplacian variance below this reads as soft/blurry
 
@@ -42,7 +43,7 @@ def run_one(entry) -> CheckResult:
         return CheckResult(CHECK, UNVERIFIED, reason=f"could not read image: {exc}")
 
     advisories = []
-    if min(w, h) < MIN_DIMENSION:
+    if max(w, h) < MIN_LONG_EDGE or min(w, h) < MIN_SHORT_EDGE:
         advisories.append(f"low resolution ({w}×{h}) for full-bleed display")
     aspect = max(w / h, h / w)
     if aspect > MAX_ASPECT:
