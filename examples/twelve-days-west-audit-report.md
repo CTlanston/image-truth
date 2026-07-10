@@ -1,7 +1,7 @@
 # image-truth report
 
 **10 images** · ✅ 4 keep · ❌ 3 reject · ⚠️ 3 advise
-Manifest: `twelve-days-west/IMAGE_CREDITS.md (heroes)`
+Input: the 8 chapter heroes + homepage hero from `twelve-days-west/IMAGE_CREDITS.md`, plus a sweep of `images/heroes/` that includes the un-referenced orphan `potato-chip-rock.png` (paths sanitized for this example)
 
 ## ❌ REJECT — `twelve-days-west/images/heroes/00-bay-area-night-skyline.jpg`
 > c3: This is clearly downtown San Francisco with the Salesforce Tower, Bay Bridge, and City Hall dome visible, not Sunnyvale.

@@ -172,7 +172,11 @@ $ image-truth check <current 8 live chapter heroes>
 **Contract-named bug rediscovered unaided**: `d625272157b7` was the same
 Unsplash photo used for both the homepage hero and the "Lanikai" chapter slot
 in the pre-dedup state. C1 downloaded both, hashed the content, and flagged
-the collision at 100% — it was never told they were duplicates.
+the collision at 100% — it was never told they were duplicates. (This legacy case is exact-identity — the same URL in two slots — so it
+demonstrates the real bug but exercises hashing, not C1's perceptual
+tolerance; the resize/crop/re-encode/color-grade tolerance was proven at
+scale on the G3 fixtures. The **potato-chip-rock.png** duplicate below is
+two independently-created byte-identical files found by content, unaided.)
 
 **Cross-check vs the site's human audit (`audit-baseline.json`)**: the human
 pass recorded `d625272157b7` as "dup of 0", the Diamond Head / Pacific-beach
