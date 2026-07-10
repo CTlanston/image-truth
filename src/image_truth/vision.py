@@ -19,6 +19,7 @@ from pathlib import Path
 DEFAULT_MODEL = "claude-sonnet-5"
 CACHE_DIR = ".image-truth-cache"
 MAX_SEND_EDGE = 1200  # downscale before upload: cuts image tokens ~2-4x
+CACHE_VERSION = "1"  # bump when re-encode params or the verdict schema change
 
 VERDICT_SCHEMA = {
     "type": "object",
@@ -44,8 +45,10 @@ def load_env(start: Path = None) -> None:
                 line = line.strip()
                 if line and not line.startswith("#") and "=" in line:
                     k, _, v = line.partition("=")
-                    os.environ.setdefault(k.strip(), v.strip())
+                    os.environ.setdefault(k.strip(), v.strip().strip("'\""))
             return
+        if (candidate / ".git").exists():
+            return  # repo boundary — don't pick up unrelated .env above
 
 
 class VisionClient:
@@ -90,7 +93,7 @@ class VisionClient:
 
     def _cache_path(self, content_hash: str, check: str, prompt: str) -> Path:
         key = hashlib.sha256(
-            f"{content_hash}|{self.model}|{check}|{prompt}".encode()
+            f"{CACHE_VERSION}|{content_hash}|{self.model}|{check}|{prompt}".encode()
         ).hexdigest()[:32]
         return self.cache / f"{check}-{key}.json"
 

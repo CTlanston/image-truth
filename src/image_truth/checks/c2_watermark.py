@@ -73,12 +73,18 @@ def _edit1(a: str, b: str) -> bool:
     return True
 
 
+# ordinary English words one edit away from vocab entries (scene-text FP risk)
+NOT_WATERMARKS = frozenset({"simple", "sampled", "sampler", "samples", "roof", "prof"})
+
+
 def _vocab_hit(word: str):
     w = re.sub(r"[^a-z0-9]", "", word.lower())
-    if len(w) < 4:
+    if len(w) < 4 or w in NOT_WATERMARKS:
         return None
     for v in VOCAB:
-        if v in w or _edit1(w, v):
+        if v in w:
+            return v
+        if len(w) >= 5 and _edit1(w, v):
             return v
     return None
 

@@ -38,7 +38,7 @@ def run_one(entry, client: VisionClient) -> CheckResult:
         return CheckResult(CHECK, UNVERIFIED, reason=str(exc))
     except Exception as exc:  # noqa: BLE001 — API failure must not kill the audit
         return CheckResult(CHECK, UNVERIFIED, reason=f"vision call failed: {exc}")
-    status = {"yes": PASS, "no": FAIL, "unsure": UNSURE}[v["answer"]]
+    status = {"yes": PASS, "no": FAIL, "unsure": UNSURE}.get(v["answer"], UNSURE)
     return CheckResult(
         CHECK, status, confidence=v["confidence"],
         reason=v["reason"] if status != PASS else f"consistent with {entry.claimed_location}",

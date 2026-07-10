@@ -68,7 +68,7 @@ def run(entries: list) -> list:
             continue
         others = [entries[j].ref for j in group if j != i]
         pair_ds = [dist[k] for k in dist if i in k]
-        best = min(pair_ds, key=lambda x: x[0] + x[1]) if pair_ds else (0, 0)
+        best = min(pair_ds, key=lambda x: x[0] + x[1])
         conf = 1.0 - (best[0] + best[1]) / (2 * HASH_BITS)
         results.append(
             CheckResult(
