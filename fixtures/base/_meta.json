@@ -6,13 +6,6 @@
     "license": "Public domain",
     "artist": "Brocken Inaglory"
   },
-  "brooklyn-bridge": {
-    "title": "File:Currier and Ives Brooklyn Bridge2.jpg",
-    "url": "https://commons.wikimedia.org/wiki/File:Currier_and_Ives_Brooklyn_Bridge2.jpg",
-    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Currier_and_Ives_Brooklyn_Bridge2.jpg/1920px-Currier_and_Ives_Brooklyn_Bridge2.jpg",
-    "license": "Public domain",
-    "artist": "Currier and Ives"
-  },
   "tower-bridge": {
     "title": "File:Tower Bridge in London at night.jpg",
     "url": "https://commons.wikimedia.org/wiki/File:Tower_Bridge_in_London_at_night.jpg",
@@ -299,5 +292,12 @@
     "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Capitol_Building_Full_View.jpg/1920px-Capitol_Building_Full_View.jpg",
     "license": "Public domain",
     "artist": "Noclip"
+  },
+  "brooklyn-bridge": {
+    "title": "File:Brooklyn Bridge pedestrians (Unsplash).jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:Brooklyn_Bridge_pedestrians_(Unsplash).jpg",
+    "thumb": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Brooklyn_Bridge_pedestrians_%28Unsplash%29.jpg/1920px-Brooklyn_Bridge_pedestrians_%28Unsplash%29.jpg",
+    "license": "CC0",
+    "artist": "Josh Wilburne joshlikesdesign"
   }
 }

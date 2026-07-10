@@ -52,7 +52,7 @@ ALLOWED_LICENSES = ("cc0", "public domain", "pdm", "no restrictions")
 # klasses (beach vs desert); hard mismatches pair within a klass.
 SUBJECTS = [
     dict(slug="golden-gate", q="Golden Gate Bridge fog", loc="Golden Gate Bridge, San Francisco, California", cap="a sandy beach with people and a red bridge tower rising from fog over a bay", klass="bridge"),
-    dict(slug="brooklyn-bridge", q="Brooklyn Bridge New York", loc="Brooklyn Bridge, New York City", cap="a stone-towered suspension bridge with cables", klass="bridge"),
+    dict(slug="brooklyn-bridge", q="Brooklyn Bridge walkway pedestrian", loc="Brooklyn Bridge, New York City", cap="a stone-towered suspension bridge with cables", klass="bridge"),
     dict(slug="tower-bridge", q="Tower Bridge London", loc="Tower Bridge, London, England", cap="a bascule bridge with two towers over a river", klass="bridge"),
     dict(slug="eiffel-tower", q="Eiffel Tower Paris", loc="Eiffel Tower, Paris, France", cap="a tall iron lattice tower", klass="tower"),
     dict(slug="space-needle", q="Space Needle Seattle", loc="Space Needle, Seattle, Washington", cap="a futuristic observation tower with a saucer top", klass="tower"),
