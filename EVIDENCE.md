@@ -68,3 +68,32 @@ $ python3 -m pytest tests/test_c3_c4.py -q     # vision checks, live API
   determinism test green. No key → UNVERIFIED.
 - **C5 (aesthetic advisory)**: resolution floor / aspect / blur heuristics,
   WARN-only (never blocks); tested on synthetic + curated bases.
+
+## Iteration 3 — CLI pipeline (G2) · 2026-07-09
+
+**Claim**: `image-truth check <manifest> --ci` works end-to-end on a mixed
+10-case manifest; exit codes honor the CI contract; legacy IMAGE_CREDITS.md
+tables parse unmodified.
+
+```
+$ image-truth check fixtures/g2_manifest.md --ci
+image-truth: 12 images — 2 keep, 10 reject, 0 advise   (exit 1)
+# all 10 case verdicts match ground truth (dup/wm/loc/cap REJECT, clean KEEP)
+# 39s cold C2 cache; warm re-run ~12s
+
+$ python3 -m pytest tests/test_g2_cli.py -q
+11 passed in 1.60s
+```
+
+- Manifest parser: .md tables (header-alias mapping), .json, .yaml, and the
+  IMAGE_CREDITS.md convention (Place/Subject/Local path columns, markdown
+  links, backticked paths) — parser test reproduces the twelve-days-west
+  table shapes.
+- Aggregator: FAIL(c1–c4) → REJECT; UNSURE/WARN → ADVISE (never blocks);
+  unreadable/missing image → REJECT "could not be loaded" (fixed: local
+  missing files previously slipped through as UNVERIFIED).
+- report.md is a contact sheet: summary counts, rejects first, one-line
+  reason per card, per-check detail beneath.
+- Exit codes: 0 without --ci even when rejects exist; 1 with --ci and any
+  REJECT; 2 on manifest errors. C2 OCR results disk-cached by content hash
+  (same store as vision cache).
