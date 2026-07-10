@@ -148,3 +148,63 @@ portrait orientation even at 1400px long edge. Fixed to judge full-bleed
 suitability by long edge (≥1000) + a low short-edge floor (≥500) — a sound
 heuristic, thresholds well clear of every fixture (long edges all 1400;
 tightest short edge 565 vs the 500 floor). Clean accuracy → 1.0.
+
+## Iteration 5 — G4 real-world audit (twelve-days-west) · 2026-07-10
+
+**Claim**: run read-only against the actual twelve-days-west travel site; the
+tool rediscovers the documented image bugs unaided.
+
+```
+$ image-truth check <legacy hero table, reconstructed from the site's audit-baseline.json>
+❌ .../photo-...-d625272157b7...: c1: duplicate of .../d625272157b7... (chapter 2 · Lanikai)
+❌ .../photo-...-d625272157b7...: c1: duplicate of .../d625272157b7... (index.html hero)
+❌ .../photo-...-6ccdb62f86ef...: c3: tropical turquoise waters… not the rocky
+   rugged coastline of Big Sur, California
+
+$ image-truth check <current 8 live chapter heroes>
+❌ 07-potato-chip-rock.png: c1: duplicate of potato-chip-rock.png   (byte-identical)
+❌ potato-chip-rock.png:    c1: duplicate of 07-potato-chip-rock.png
+❌ 00-bay-area-night-skyline.jpg (labeled "Sunnyvale"): c3: downtown San
+   Francisco (Salesforce Tower, Bay Bridge, City Hall) not Sunnyvale
+⚠️ 05-grand-central-market.jpg: c5: low resolution (500×375) for full-bleed
+```
+
+**Contract-named bug rediscovered unaided**: `d625272157b7` was the same
+Unsplash photo used for both the homepage hero and the "Lanikai" chapter slot
+in the pre-dedup state. C1 downloaded both, hashed the content, and flagged
+the collision at 100% — it was never told they were duplicates. (This legacy case is exact-identity — the same URL in two slots — so it
+demonstrates the real bug but exercises hashing, not C1's perceptual
+tolerance; the resize/crop/re-encode/color-grade tolerance was proven at
+scale on the G3 fixtures. The **potato-chip-rock.png** duplicate below is
+two independently-created byte-identical files found by content, unaided.)
+
+**Cross-check vs the site's human audit (`audit-baseline.json`)**: the human
+pass recorded `d625272157b7` as "dup of 0", the Diamond Head / Pacific-beach
+images as "IRRELEVANT — Hawaii not on the California itinerary", and (in
+`IMAGE_CREDITS.md` "Known follow-ups") the 500×375 Grand Central Market image
+as "will look pixelated at full-bleed". image-truth independently reproduced
+all three: the duplicate (C1), the wrong-location call (C3), the low-res
+advisory (C5).
+
+**Notes (honest scope):**
+- The second named hash `cc02fe5d8800` survives in the current repo only as a
+  bare hash in `CHANGELOG.md`/`audit-baseline.json`; its direct Unsplash URL
+  did not survive the dedup pass, so it can't be re-fetched. It was a stale
+  Hawaii ref in the same removed table; C1's mechanism that caught
+  `d625272157b7` catches it identically.
+- The "Santa Barbara slot with an LA palm photo" was removed by the same
+  localization pass and is not in current data. The equivalent bug **class**
+  (wrong-city location label) is demonstrated live by the SF-labeled-as-
+  Sunnyvale rejection above.
+- The Pismo pier / Disneyland castle heroes returned **UNSURE → ADVISE**, not
+  REJECT — the tool declines to fake confidence on consistent-but-
+  unconfirmable photos (a design principle), and advisories never block.
+
+**Robustness fixes surfaced by dogfooding** (real gaps the audit found):
+local paths containing spaces (real directories like `HW+CA Trips/`), and
+extension-less image-CDN URLs (Unsplash/Pexels serve `…/photo-<id>?w=…` with
+no `.jpg`). Both now parse; landing-page source links
+(`www.pexels.com/photo/351/`) are still correctly ignored. +1 regression test.
+
+Artifacts: `examples/twelve-days-west-legacy-heroes.md` (runnable, public
+URLs) + `examples/twelve-days-west-audit-report.md` (sanitized report).
