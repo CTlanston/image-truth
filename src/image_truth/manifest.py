@@ -66,11 +66,17 @@ def _normalize_keys(d: dict) -> dict:
     return out
 
 
-def _parse_json(p: Path) -> list:
-    data = json.loads(p.read_text())
+def _rows(data) -> list:
     if isinstance(data, dict):
         data = data.get("images") or data.get("entries") or []
-    return [_mk_entry(_normalize_keys(d)) for d in data if _normalize_keys(d).get("image")]
+    if not isinstance(data, list):
+        raise ValueError("manifest must be a list of entries (or {images: [...]})")
+    return [d for d in data if isinstance(d, dict)]
+
+
+def _parse_json(p: Path) -> list:
+    data = json.loads(p.read_text())
+    return [_mk_entry(_normalize_keys(d)) for d in _rows(data) if _normalize_keys(d).get("image")]
 
 
 def _parse_yaml(p: Path) -> list:
@@ -78,10 +84,11 @@ def _parse_yaml(p: Path) -> list:
         import yaml
     except ImportError as exc:
         raise RuntimeError("YAML manifests need PyYAML: pip install image-truth[yaml]") from exc
-    data = yaml.safe_load(p.read_text())
-    if isinstance(data, dict):
-        data = data.get("images") or data.get("entries") or []
-    return [_mk_entry(_normalize_keys(d)) for d in data if _normalize_keys(d).get("image")]
+    try:
+        data = yaml.safe_load(p.read_text())
+    except yaml.YAMLError as exc:
+        raise ValueError(f"malformed YAML manifest: {exc}") from exc
+    return [_mk_entry(_normalize_keys(d)) for d in _rows(data) if _normalize_keys(d).get("image")]
 
 
 def _clean_cell(cell: str) -> str:
@@ -120,6 +127,12 @@ def _parse_markdown(p: Path) -> list:
             canon = [
                 FIELD_ALIASES.get(re.sub(r"[^a-z0-9]", "", h.lower())) for h in headers
             ]
+            if not any(canon):
+                # not a manifest table (settings/config/etc) — don't invent entries
+                i += 2
+                while i < len(lines) and lines[i].lstrip().startswith("|"):
+                    i += 1
+                continue
             i += 2
             while i < len(lines) and lines[i].lstrip().startswith("|"):
                 cells = _split_row(lines[i])

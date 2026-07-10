@@ -81,6 +81,34 @@ def test_parse_errors():
         parse(__file__)  # .py unsupported
 
 
+def test_malformed_yaml_is_value_error(tmp_path):
+    p = tmp_path / "bad.yaml"
+    p.write_text("images:\n  - image: a.jpg\n   bad: [unclosed\n")
+    with pytest.raises(ValueError):
+        parse(str(p))
+
+
+def test_non_dict_rows_are_value_error(tmp_path):
+    p = tmp_path / "scalar.json"
+    p.write_text('["a.jpg", "b.jpg"]')  # list of strings, not entries
+    with pytest.raises(ValueError):
+        parse(str(p))
+
+
+def test_settings_table_does_not_invent_entries(tmp_path):
+    """A non-manifest table (no aliased headers) must yield no entries."""
+    p = tmp_path / "doc.md"
+    p.write_text(
+        "# Doc\n\n"
+        "| Setting | Default |\n|---|---|\n| logo | assets/logo.png |\n\n"
+        "| Place | Local path |\n|---|---|\n| Paris | pics/eiffel.jpg |\n"
+    )
+    entries = parse(str(p))
+    assert [(e.image, e.claimed_location) for e in entries] == [
+        ("pics/eiffel.jpg", "Paris")
+    ]
+
+
 # ------------------------------------------------------------- CLI e2e
 
 def _run_cli(*args, cwd=ROOT):

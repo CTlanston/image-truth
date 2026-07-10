@@ -59,9 +59,14 @@ def _cached_per_image(check_module, entries, cache_dir: Path, use_cache: bool, w
     for i, e in enumerate(entries):
         h = _content_hash(e.local_path) if e.local_path else ""
         cpath = cache_dir / f"{check_module.CHECK}-{C2_CACHE_VERSION}-{h[:32]}.json"
+        cached = None
         if use_cache and h and cpath.exists():
-            d = json.loads(cpath.read_text())
-            results[i] = CheckResult(**d)
+            try:
+                cached = CheckResult(**json.loads(cpath.read_text()))
+            except (ValueError, TypeError):
+                cached = None  # corrupt cache entry (crashed run) — re-run
+        if cached is not None:
+            results[i] = cached
         else:
             to_run.append((i, e, cpath if h else None))
 
@@ -119,6 +124,12 @@ def aggregate(entry, results: list) -> ImageVerdict:
     if warns:
         top = warns[0]
         return ImageVerdict(entry, ADVISE, results, reason=f"{top.check}: {top.reason}")
+    unverified = [r.check for r in results if r.status == UNVERIFIED]
+    if unverified:
+        return ImageVerdict(
+            entry, KEEP, results,
+            reason=f"all runnable checks passed ({', '.join(unverified)} unverified)",
+        )
     return ImageVerdict(entry, KEEP, results, reason="all checks passed")
 
 

@@ -110,9 +110,12 @@ class VisionClient:
         b64, content_hash = self._image_payload(image_path)
         cpath = self._cache_path(content_hash, check, prompt)
         if self.use_cache and cpath.exists():
-            out = json.loads(cpath.read_text())
-            out["cached"] = True
-            return out
+            try:
+                out = json.loads(cpath.read_text())
+                out["cached"] = True
+                return out
+            except ValueError:
+                pass  # corrupt cache entry (crashed run) — refetch
 
         client = self._anthropic()
         response = client.messages.create(
