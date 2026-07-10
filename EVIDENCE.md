@@ -34,3 +34,37 @@ new/changed bases = 9 MATCH + 2 caption-corrected. Final: 43/43 verified.
 Notes: subjects whose free-license images don't exist on Commons (Big Ben,
 Taj Mahal, Petra, Santorini, Sydney Opera, Cloud Gate...) were dropped in
 favor of reliably public-domain US NPS/government subjects.
+
+## Iteration 2 — checks C1–C5 (G1) · 2026-07-09
+
+**Claim**: five independent check modules, each unit-tested against the
+labeled fixtures.
+
+```
+$ python3 -m pytest tests/ -q          # C1/C2/C5 + fixtures (pre-C3/C4)
+19 passed, 1 skipped in 122.08s
+$ python3 -m pytest tests/test_c3_c4.py -q     # vision checks, live API
+7 passed in 29.44s
+```
+
+- **C1 (pHash+dHash)**: thresholds calibrated on fixtures — true derived
+  pairs max (phash 4, dhash 5); closest distinct-photo impostors (14, 17).
+  Locked at ≤10/≤14 with per-image hash families (full + 90/80/70% center
+  crops). 30/30 derived duplicates detected, 0 false positives across
+  bundles.
+- **C2 (OCR watermark)**: 20/20 synthetic watermarks detected
+  (corner/diagonal/tile), 0/25 clean false positives — including Times
+  Square/Shibuya billboard scenes. Pass pipeline: gray → edge strips +
+  corner patches (2×, despeckled luminance masks) → full-frame masks →
+  rotated center-band high-pass (catches diagonal SAMPLE bands over
+  textured scenes). Fuzzy vocab (edit-distance 1) + line joining for OCR
+  fragmentation. Degrades to UNVERIFIED without tesseract.
+- **C3/C4 (vision, claude-sonnet-5)**: live smoke 6/6 correct at ≥0.97
+  confidence (incl. hard case: Golden Gate photo claimed as Brooklyn Bridge
+  → FAIL "the bridge visible in the fog is the Golden Gate Bridge").
+  Prompt made medium-agnostic after a real catch: vintage Stonehenge
+  postcard art was rejected as "not a photograph" — C3 judges place, not
+  medium. Disk cache by (content hash, model, check, prompt): cache-hit
+  determinism test green. No key → UNVERIFIED.
+- **C5 (aesthetic advisory)**: resolution floor / aspect / blur heuristics,
+  WARN-only (never blocks); tested on synthetic + curated bases.

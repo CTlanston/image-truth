@@ -11,7 +11,7 @@ are transformations of these bases made by `make_fixtures.py`.
 | antelope-canyon | File:USA Antelope-Canyon.jpg | Lucas Löffler | Public domain | https://commons.wikimedia.org/wiki/File:USA_Antelope-Canyon.jpg |
 | arches-utah | File:Delicatearch.png | National Park Service Photo | Public domain | https://commons.wikimedia.org/wiki/File:Delicatearch.png |
 | banff-lake | File:Moraine Lake 17092005.jpg | Gorgo | Public domain | https://commons.wikimedia.org/wiki/File:Moraine_Lake_17092005.jpg |
-| brooklyn-bridge | File:Currier and Ives Brooklyn Bridge2.jpg | Currier and Ives | Public domain | https://commons.wikimedia.org/wiki/File:Currier_and_Ives_Brooklyn_Bridge2.jpg |
+| brooklyn-bridge | File:Brooklyn Bridge pedestrians (Unsplash).jpg | Josh Wilburne joshlikesdesign | CC0 | https://commons.wikimedia.org/wiki/File:Brooklyn_Bridge_pedestrians_(Unsplash).jpg |
 | bryce-canyon | File:Hoodoos Of Bryce Canyon (26141752758).jpg | Bernard Spragg. NZ from Christchurch, New Zealand | CC0 | https://commons.wikimedia.org/wiki/File:Hoodoos_Of_Bryce_Canyon_(26141752758).jpg |
 | colosseum | File:Colosseum of Rome and Roman forum.jpg | Wilfredor | CC0 | https://commons.wikimedia.org/wiki/File:Colosseum_of_Rome_and_Roman_forum.jpg |
 | death-valley | File:Death Valley dunes (23802298723).jpg | Lisa Ann Yount from El Cerrito, CA, United States | CC0 | https://commons.wikimedia.org/wiki/File:Death_Valley_dunes_(23802298723).jpg |
