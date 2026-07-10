@@ -5,8 +5,10 @@ Audit your first manifest in under five minutes.
 ## 1. Install
 
 ```bash
-pip install image-truth
+pip install "image-truth[all] @ git+https://github.com/CTlanston/image-truth"
 ```
+
+(Install is from source today — a PyPI package is planned. The `[all]` extra adds OCR, the Claude SDK, and YAML support.)
 
 The duplicate and watermark checks need the **tesseract** OCR binary:
 
@@ -78,7 +80,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
-      - run: pip install image-truth
+      - run: pip install "image-truth[all] @ git+https://github.com/CTlanston/image-truth"
       - run: image-truth check IMAGE_CREDITS.md --ci
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optional

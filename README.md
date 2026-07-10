@@ -17,9 +17,12 @@ a human reviewer catches on a good day and misses on a deadline. `image-truth`
 catches them every time, in CI.
 
 ```bash
-pip install image-truth
+pip install "image-truth[all] @ git+https://github.com/CTlanston/image-truth"
 image-truth check IMAGE_CREDITS.md --ci   # exit 1 if any image is rejected
 ```
+
+> Install is from source today (PyPI package planned). The `[all]` extra pulls in
+> OCR (pytesseract), the Claude SDK, and YAML manifest support.
 
 ## What it checks
 
@@ -66,7 +69,7 @@ mislabeled hero on an actual travel site, unaided.
 
 ```yaml
 # .github/workflows/images.yml
-- run: pip install image-truth
+- run: pip install "image-truth[all] @ git+https://github.com/CTlanston/image-truth"
 - run: image-truth check IMAGE_CREDITS.md --ci
   env:
     ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optional — enables C3/C4

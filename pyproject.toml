@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "image-truth"
-version = "0.1.0"
+version = "1.0.0"
 description = "CI gate for image QA: duplicate, watermark, location-mismatch, and caption-mismatch detection for website/doc image manifests"
 readme = "README.md"
 license = { text = "MIT" }
