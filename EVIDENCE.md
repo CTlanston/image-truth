@@ -131,9 +131,20 @@ cache-less subset runs 24 vision-bearing cases with `use_cache=False` and
 counts `VisionClient.calls_made` = 48 live calls (c3+c4 per case) to prove
 the live path, not cache replay.
 
+Accuracy definition (stricter than "rejected somehow"): a reject-category
+case counts correct only when its INTENDED blocking check fires — dup→c1 on
+both entries, watermark→c2, location→c3, caption→c4 — so a reject for the
+wrong reason does not pass. Clean cases count correct only when every entry
+is KEEP. A blanket "reject everything" check therefore fails the clean gate,
+not passes the suite.
+
 Cold-run finding (fixed here): rep-1 clean accuracy was 0.88 — three
-portrait bases (Eiffel 757×1400, Liberty 565×1400) drew a C5 ADVISE
-"low resolution", never a REJECT (clean false-reject stayed 0%). Root cause:
-C5 used `min(w,h) < 800`, which penalizes portrait orientation even at
-1400px long edge. Fixed to judge full-bleed suitability by long edge
-(≥1000) with a low short-edge floor (≥500). Clean accuracy → 1.0.
+portrait bases (Eiffel 757×1400, Liberty 565×1400) drew a C5 **ADVISE**
+"low resolution". C5 is advisory-only (never in the blocking set), so these
+were never at risk of a false REJECT — clean false-reject was 0% before and
+after. The fix moves the *accuracy* number, which counts a clean case wrong
+when it is not KEEP. Root cause: C5 used `min(w,h) < 800`, penalizing
+portrait orientation even at 1400px long edge. Fixed to judge full-bleed
+suitability by long edge (≥1000) + a low short-edge floor (≥500) — a sound
+heuristic, thresholds well clear of every fixture (long edges all 1400;
+tightest short edge 565 vs the 500 floor). Clean accuracy → 1.0.

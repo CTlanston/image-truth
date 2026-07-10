@@ -78,16 +78,17 @@ def evaluate_case(case, verdicts, results):
             any(r.check == "c1" and r.status == FAIL for r in rs) for rs in results
         )
         return both_c1, got, "" if both_c1 else "c1 did not flag both entries"
-    # single-entry reject categories
+    # single-entry reject categories: the INTENDED check must fire (stricter
+    # than "rejected somehow" — a reject for the wrong reason is not a pass)
     want_check = CHECK_FOR[cat]
     fired = any(r.check == want_check and r.status == FAIL for r in results[0])
-    rejected = verdicts[0].verdict == REJECT
-    correct = rejected  # keep/reject accuracy: any correct reject counts
+    correct = fired  # firing the intended blocking check implies REJECT
     detail = ""
     if not correct:
-        detail = f"expected REJECT via {want_check}, got {verdicts[0].verdict}: {verdicts[0].reason}"
-    elif not fired:
-        detail = f"rejected but by a different check (not {want_check})"
+        if verdicts[0].verdict == REJECT:
+            detail = f"rejected but not by {want_check} (wrong reason): {verdicts[0].reason}"
+        else:
+            detail = f"expected REJECT via {want_check}, got {verdicts[0].verdict}: {verdicts[0].reason}"
     return correct, got, detail
 
 
