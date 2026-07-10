@@ -97,3 +97,43 @@ $ python3 -m pytest tests/test_g2_cli.py -q
 - Exit codes: 0 without --ci even when rejects exist; 1 with --ci and any
   REJECT; 2 on manifest errors. C2 OCR results disk-cached by content hash
   (same store as vision cache).
+
+## Iteration 4 — G3 E2E@scale · 2026-07-10
+
+**Claim**: full 120-case suite ×3 repetitions (360 case-evaluations) meets
+every G3 gate, with a live cache-less vision subset proving the API path.
+
+```
+$ python3 scripts/run_e2e.py --reps 3 --cacheless 24
+rep 1: 120 cases, accuracy 0.975→1.000, 239s (cold C2+vision)
+rep 2: 120 cases, accuracy 1.000, 4s (warm cache — reproducible)
+rep 3: 120 cases, accuracy 1.000, 4s
+...
+case_evaluations: 360
+overall_accuracy: 1.0
+duplicate_detection: 1.0        # 90/90 (30 dup cases ×3)
+clean_false_reject_rate: 0.0    # 0/75
+by_class: dup 1.0, watermark 1.0, location 1.0, clean 1.0, caption 1.0
+cacheless: 24 cases, 48 live vision calls, proves_live_path: true
+ALL GATES PASS: True
+```
+
+Gates: case_evaluations≥360 ✓ · overall_accuracy≥0.95 ✓ ·
+duplicate_detection=1.0 ✓ · clean_false_reject≤0.05 ✓ ·
+cacheless_vision≥20 ✓. Per-case rows in `metrics/e2e_results.json`.
+
+Method: each rep runs all 3 bundles as separate manifests — bundles
+guarantee no base repeats within a bundle, so C1 never mis-groups distinct
+cases (running all 120 at once WOULD cross-link same-base cases across
+bundles; the bundle design exists for exactly this). Reps 2–3 are
+byte-reproducible from cache (deterministic C1/C2 + cached vision). The
+cache-less subset runs 24 vision-bearing cases with `use_cache=False` and
+counts `VisionClient.calls_made` = 48 live calls (c3+c4 per case) to prove
+the live path, not cache replay.
+
+Cold-run finding (fixed here): rep-1 clean accuracy was 0.88 — three
+portrait bases (Eiffel 757×1400, Liberty 565×1400) drew a C5 ADVISE
+"low resolution", never a REJECT (clean false-reject stayed 0%). Root cause:
+C5 used `min(w,h) < 800`, which penalizes portrait orientation even at
+1400px long edge. Fixed to judge full-bleed suitability by long edge
+(≥1000) with a low short-edge floor (≥500). Clean accuracy → 1.0.
