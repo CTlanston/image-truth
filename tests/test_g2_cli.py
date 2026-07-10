@@ -100,13 +100,13 @@ def test_paths_with_spaces_and_cdn_urls(tmp_path):
     p = tmp_path / "m.md"
     p.write_text(
         "| Place | Local path |\n|---|---|\n"
-        "| A | /Users/me/My Trips/west/images/00 hero.jpg |\n"
+        "| A | /srv/data/My Trips/west/images/00 hero.jpg |\n"
         "| B | https://images.unsplash.com/photo-1542259009477-d625272157b7?w=1600 |\n"
         "| C source | [Pexels 351](https://www.pexels.com/photo/351/) |\n"  # landing page, not an image
     )
     entries = parse(str(p))
     imgs = [e.image for e in entries]
-    assert "/Users/me/My Trips/west/images/00 hero.jpg" in imgs  # spaces kept
+    assert "/srv/data/My Trips/west/images/00 hero.jpg" in imgs  # spaces kept
     assert any("images.unsplash.com/photo-1542259009477" in i for i in imgs)  # CDN url
     assert not any("pexels.com/photo/351" in i for i in imgs)  # source link ignored
 

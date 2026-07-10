@@ -208,3 +208,30 @@ no `.jpg`). Both now parse; landing-page source links
 
 Artifacts: `examples/twelve-days-west-legacy-heroes.md` (runnable, public
 URLs) + `examples/twelve-days-west-audit-report.md` (sanitized report).
+
+## Iteration 6 — scrub + release prep (G5) · 2026-07-10
+
+**Scrub** (must be zero hits before public):
+```
+$ gitleaks detect --no-banner            # full history, 11 commits
+INF 11 commits scanned.  no leaks found
+
+$ git ls-files -z | xargs -0 grep -ln "/Users/"        # → (none)
+$ git log --all --name-only | grep -c "^\.env$"        # → 0  (.env never committed)
+$ # full-history blob scan for sk-ant-api03            # → (none)
+$ git ls-files -z | xargs -0 grep -oE "<email>"        # → only noreply@anthropic.com (commit co-author)
+```
+Hostname false positive: the machine is named "Tahoe" and the fixtures contain
+"Lake Tahoe" (public geography) — not a machine-name leak.
+
+**Hermetic CI** (`tests/ci_smoke.py`, `.github/workflows/ci.yml`): generates
+its own images, needs no fixtures / network / API key. Covers G1-deterministic
+(C1 exact+resized duplicate detection, C2 watermark vs clean) and G2 (CLI exit
+codes 0/1/2, report-only mode, vision degradation). 4 passed in 3.4s — the
+badge reflects this offline core; the full 120-case G3 + vision runs locally
+(above).
+
+**Release docs**: README.md (problem, check taxonomy, sample report, CI-gate
+snippet, Actions + MIT badges), QUICKSTART.md (install → audit in <5 min,
+copy-paste Actions workflow, IMAGE_CREDITS.md compatibility note), LICENSE
+(MIT), examples/ (G4 audit artifacts).

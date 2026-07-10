@@ -1,0 +1,30 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install tesseract (for the watermark check)
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+
+      - name: Install image-truth
+        run: pip install -e ".[all]" pytest
+
+      # Hermetic gates — no network, no fixtures, no API key:
+      #   G1 (deterministic core: C1 duplicates, C2 watermark OCR)
+      #   G2 (CLI end-to-end + exit-code contract)
+      # The full 120-case G3 suite and the C3/C4 vision checks run locally
+      # with an ANTHROPIC_API_KEY (see EVIDENCE.md); CI proves the offline core.
+      - name: G1 + G2 (hermetic)
+        run: pytest tests/ci_smoke.py -q
