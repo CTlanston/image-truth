@@ -34,10 +34,21 @@ image-truth check IMAGE_CREDITS.md --ci   # exit 1 if any image is rejected
 | **C4 caption** | a caption whose key subjects aren't actually in the picture | a vision model checks the caption's nouns against the image | REJECT / UNSURE |
 | **C5 aesthetic** | too-low resolution, extreme aspect, blur — advisory only, never blocks | resolution / aspect / sharpness heuristics | ADVISE |
 
-C1, C2, and C5 are deterministic and run offline. C3 and C4 call the Claude API
-(`claude-sonnet-5` by default) and cache every response by image content hash,
-so re-runs are reproducible and free. **No API key? C3/C4 report `UNVERIFIED`
-and the rest of the gate still runs** — they never fake a verdict.
+C1, C2, and C5 are deterministic and run offline. C3 and C4 call a vision
+model — bring whichever key you have; image-truth auto-detects it:
+
+| `--provider` | Key env | Default model | Notes |
+|---|---|---|---|
+| `gemini` | `GEMINI_API_KEY` | `gemini-2.5-flash-lite` | cheapest managed; AI Studio free tier covers daily audits |
+| `dashscope` | `DASHSCOPE_API_KEY` | `qwen3-vl-flash` | 阿里云百炼, mainland-China friendly, ~$0.01 per 60-image audit |
+| `ark` | `ARK_API_KEY` | `doubao-seed-1-6-vision-250815` | 火山方舟 (ByteDance Doubao) |
+| `anthropic` | `ANTHROPIC_API_KEY` | `claude-sonnet-5` | highest verified accuracy; `--model claude-haiku-4-5` for 3× cheaper |
+
+Every response is cached by image content hash, so re-runs are reproducible
+and free. **No API key? C3/C4 report `UNVERIFIED` and the rest of the gate
+still runs** — they never fake a verdict. Accuracy note: the 100% G3 score
+below was measured on `claude-sonnet-5`; benchmark alternatives on your own
+manifests with `scripts/compare_models.py` before switching a CI gate.
 
 ## Sample report
 
@@ -72,7 +83,8 @@ mislabeled hero on an actual travel site, unaided.
 - run: pip install "image-truth[all] @ git+https://github.com/CTlanston/image-truth"
 - run: image-truth check IMAGE_CREDITS.md --ci
   env:
-    ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optional — enables C3/C4
+    GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}         # optional — enables C3/C4
+    # or ANTHROPIC_API_KEY / DASHSCOPE_API_KEY / ARK_API_KEY
 ```
 
 `--ci` exits `1` on any REJECT (fails the job), `0` when everything is

@@ -51,17 +51,32 @@ You'll get a summary in the terminal and two files next to it:
 
 ## 4. Turn on the vision checks (optional)
 
-C3 (location match) and C4 (caption match) call the Claude API. Set a key:
+C3 (location match) and C4 (caption match) call a vision model. Set **any one**
+of these keys and image-truth picks it up automatically:
+
+| Provider | Key env | Default model | Get a key |
+|---|---|---|---|
+| Google Gemini | `GEMINI_API_KEY` | `gemini-2.5-flash-lite` | https://aistudio.google.com/app/apikey (free tier) |
+| 阿里云百炼 DashScope | `DASHSCOPE_API_KEY` | `qwen3-vl-flash` | https://bailian.console.aliyun.com/?apiKey=1 |
+| 火山方舟 Ark (豆包) | `ARK_API_KEY` | `doubao-seed-1-6-vision-250815` | https://console.volcengine.com/ark |
+| Anthropic Claude | `ANTHROPIC_API_KEY` | `claude-sonnet-5` | https://console.anthropic.com/settings/keys |
 
 ```bash
-export ANTHROPIC_API_KEY=sk-ant-...
+export GEMINI_API_KEY=...          # cheapest managed option; free tier covers daily use
 image-truth check manifest.json
+
+# pick explicitly, or upgrade quality:
+image-truth check manifest.json --provider anthropic --model claude-haiku-4-5
 ```
+
+When several keys are configured, auto-detection prefers
+`gemini → dashscope → ark → anthropic`; `--provider` / `IMAGE_TRUTH_PROVIDER`
+overrides it. DashScope International users: set `IMAGE_TRUTH_BASE_URL` to
+`https://dashscope-intl.aliyuncs.com/compatible-mode/v1`.
 
 Responses are cached by image content hash in `.image-truth-cache/`, so a
 second run is instant and identical. Add `--no-cache` to force fresh calls.
-The default model is `claude-sonnet-5`; override with `--model` or the
-`IMAGE_TRUTH_VISION_MODEL` env var.
+Override the model with `--model` or `IMAGE_TRUTH_VISION_MODEL`.
 
 ## 5. Gate your deploy
 
@@ -83,7 +98,7 @@ jobs:
       - run: pip install "image-truth[all] @ git+https://github.com/CTlanston/image-truth"
       - run: image-truth check IMAGE_CREDITS.md --ci
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}   # optional
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}         # optional (or ANTHROPIC/DASHSCOPE/ARK key)
 ```
 
 That's the whole gate: copy those ten lines, point them at your manifest, and a

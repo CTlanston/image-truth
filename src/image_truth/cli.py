@@ -35,7 +35,12 @@ def main(argv: list = None) -> int:
     chk.add_argument("--ci", action="store_true", help="exit 1 if any image is rejected")
     chk.add_argument("--no-cache", action="store_true", help="bypass the vision/OCR response cache")
     chk.add_argument("--out", default=".", help="directory for report.md / report.json (default: .)")
-    chk.add_argument("--model", default=None, help="vision model override (default: claude-sonnet-5)")
+    chk.add_argument(
+        "--provider", default=None,
+        help="vision provider: gemini | dashscope | ark | anthropic "
+             "(default: auto-detect from configured API keys)",
+    )
+    chk.add_argument("--model", default=None, help="vision model override (see README for per-provider defaults)")
 
     args = ap.parse_args(argv)
     try:
@@ -45,7 +50,11 @@ def main(argv: list = None) -> int:
         return 2
 
     base_dir = Path(args.manifest).resolve().parent
-    vision = VisionClient(model=args.model, use_cache=not args.no_cache)
+    try:
+        vision = VisionClient(model=args.model, use_cache=not args.no_cache, provider=args.provider)
+    except ValueError as exc:
+        print(f"image-truth: {exc}", file=sys.stderr)
+        return 2
     verdicts = audit(entries, base_dir, vision=vision, use_cache=not args.no_cache)
 
     out = Path(args.out)
@@ -61,6 +70,8 @@ def main(argv: list = None) -> int:
         print(
             f"image-truth: {s['total']} images — "
             f"{s['keep']} keep, {s['reject']} reject, {s['advise']} advise"
+            + (f"  [vision: {vision.provider}/{vision.model}]" if vision.available
+               else "  [vision: unavailable — no API key]")
         )
         for v in verdicts:
             if v.verdict == REJECT:

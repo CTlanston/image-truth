@@ -169,11 +169,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--reps", type=int, default=3)
     ap.add_argument("--cacheless", type=int, default=24)
+    ap.add_argument("--provider", default=None, help="vision provider (gemini|dashscope|ark|anthropic)")
+    ap.add_argument("--model", default=None, help="vision model override")
     args = ap.parse_args()
     METRICS.mkdir(exist_ok=True)
 
     truth, bundles = load_bundles()
-    vision = VisionClient()
+    vision = VisionClient(provider=args.provider, model=args.model)
     print(f"vision available: {vision.available} | model: {vision.model}")
 
     t0 = time.time()
@@ -189,7 +191,7 @@ def main():
     cacheless_cases = [c for c in truth["cases"]
                        if c["category"] in ("location_mismatch", "caption_mismatch", "clean")]
     cacheless_cases = cacheless_cases[:args.cacheless]
-    fresh = VisionClient(use_cache=False)
+    fresh = VisionClient(use_cache=False, provider=args.provider, model=args.model)
     calls_before = fresh.calls_made
     cl_correct = 0
     if fresh.available:
