@@ -173,14 +173,18 @@ class VisionClient:
             import anthropic
 
             self._client = anthropic.Anthropic()
+        output_config = {"format": {"type": "json_schema", "schema": VERDICT_SCHEMA}}
+        extra = {}
+        # effort + explicit thinking-off exist on Sonnet 4.6+/Opus 4.6+/Sonnet 5;
+        # Haiku 4.5 and older reject them (400) and default to thinking-off anyway
+        if not self.model.startswith(("claude-haiku", "claude-3", "claude-sonnet-4-5")):
+            output_config["effort"] = "low"
+            extra["thinking"] = {"type": "disabled"}  # cheap deterministic-ish checks
         response = self._client.messages.create(
             model=self.model,
             max_tokens=400,
-            thinking={"type": "disabled"},  # cheap deterministic-ish checks
-            output_config={
-                "effort": "low",
-                "format": {"type": "json_schema", "schema": VERDICT_SCHEMA},
-            },
+            output_config=output_config,
+            **extra,
             messages=[{
                 "role": "user",
                 "content": [

@@ -1,0 +1,78 @@
+{
+  "cases_per_category": {
+    "location_mismatch": 25,
+    "caption_mismatch": 20,
+    "clean": 25
+  },
+  "results": [
+    {
+      "provider": "anthropic",
+      "model": "claude-sonnet-5",
+      "cases": 70,
+      "accuracy": 1.0,
+      "loc_mismatch_recall": "25/25",
+      "cap_mismatch_recall": "20/20",
+      "clean_pass": "25/25",
+      "unsure_verdicts": 0,
+      "unverified": 0,
+      "live_calls": 0,
+      "avg_latency_s": null,
+      "wall_s": 0.4,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "eval_cost_usd": 0.0,
+      "audit60_cost_usd": 0.0,
+      "misses": []
+    },
+    {
+      "provider": "anthropic",
+      "model": "claude-haiku-4-5",
+      "cases": 70,
+      "accuracy": 0.9286,
+      "loc_mismatch_recall": "24/25",
+      "cap_mismatch_recall": "20/20",
+      "clean_pass": "21/25",
+      "unsure_verdicts": 0,
+      "unverified": 0,
+      "live_calls": 0,
+      "avg_latency_s": null,
+      "wall_s": 0.4,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "eval_cost_usd": 0.0,
+      "audit60_cost_usd": 0.0,
+      "misses": [
+        [
+          "loc",
+          "loc_000",
+          "PASS",
+          "consistent with Brooklyn Bridge, New York City"
+        ],
+        [
+          "clean",
+          "clean_004",
+          "c4 FAIL",
+          "The image shows the Colosseum in Rome, which is a circular/elliptical amphitheat"
+        ],
+        [
+          "clean",
+          "clean_007",
+          "c4 FAIL",
+          "The caption describes a sunset scene, but the dramatic lighting with bright illu"
+        ],
+        [
+          "clean",
+          "clean_011",
+          "c3 FAIL",
+          "This image shows a traditional Japanese garden with a dark wooden pavilion besid"
+        ],
+        [
+          "clean",
+          "clean_022",
+          "c4 FAIL",
+          "The image shows the Colosseum in Rome, which is a circular/elliptical amphitheat"
+        ]
+      ]
+    }
+  ]
+}

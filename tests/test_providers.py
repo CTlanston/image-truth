@@ -164,6 +164,40 @@ def test_openai_path_drops_rejected_response_format(clean_env, tmp_path):
     assert out["answer"] == "yes" and seen == [True, False]
 
 
+def test_anthropic_param_compat_by_model(clean_env, tmp_path):
+    """Haiku 4.5 / claude-3 / sonnet-4-5 reject `effort` and `thinking` (400) —
+    they must be sent only to models that support them (regression: the first
+    Haiku benchmark scored 35.7% because every call 400'd)."""
+    clean_env.setenv("ANTHROPIC_API_KEY", "k")
+
+    class FakeMessages:
+        def __init__(self):
+            self.kwargs = None
+
+        def create(self, **kwargs):
+            self.kwargs = kwargs
+            block = type("B", (), {"type": "text",
+                                   "text": '{"answer": "yes", "confidence": 0.9, "reason": "ok"}'})()
+            usage = type("U", (), {"input_tokens": 10, "output_tokens": 5})()
+            return type("R", (), {"content": [block], "usage": usage})()
+
+    for model, expect_effort in [
+        ("claude-haiku-4-5", False),
+        ("claude-3-5-sonnet-latest", False),
+        ("claude-sonnet-4-5", False),
+        ("claude-sonnet-5", True),
+    ]:
+        client = VisionClient(provider="anthropic", model=model,
+                              cache_dir=str(tmp_path / f"cache-{model}"))
+        fake = FakeMessages()
+        client._client = type("C", (), {"messages": fake})()
+        out = client.ask(_img(tmp_path), "c3", "is this X?")
+        assert out["answer"] == "yes"
+        has_effort = "effort" in fake.kwargs["output_config"]
+        has_thinking = "thinking" in fake.kwargs
+        assert has_effort == has_thinking == expect_effort, model
+
+
 def test_hard_api_error_raises_runtime(clean_env, tmp_path):
     clean_env.setenv("GEMINI_API_KEY", "k")
     client = VisionClient(provider="gemini", cache_dir=str(tmp_path / "cache"))

@@ -127,6 +127,12 @@ def eval_model(provider, model, by_cat, use_cache):
             bad = r3 if r3.status == FAIL else r4
             misses.append(("clean", c["id"], f"{bad.check} FAIL", bad.reason[:80]))
 
+    if unverified:
+        first = next(m for m in misses if m[2] == UNVERIFIED)
+        return {"provider": provider, "model": model,
+                "error": f"{unverified} calls UNVERIFIED (API errors) — scores would be "
+                         f"meaningless. First error: {first[3]}"}
+
     n_loc, n_cap, n_clean = (len(by_cat[k]) for k in
                              ("location_mismatch", "caption_mismatch", "clean"))
     total = n_loc + n_cap + n_clean
@@ -192,9 +198,20 @@ def main():
         print("   " + (r.get("error") or
               f"acc {r['accuracy']:.1%} · {lat} · ${r['eval_cost_usd']} eval"))
 
+    # merge into existing results by (provider, model) so incremental runs
+    # (one model at a time, as keys arrive) don't wipe earlier rows
     out = ROOT / "metrics" / "model_comparison.json"
+    merged = {}
+    if out.exists():
+        try:
+            for r in json.loads(out.read_text()).get("results", []):
+                merged[(r["provider"], r["model"])] = r
+        except ValueError:
+            pass
+    for r in rows:
+        merged[(r["provider"], r["model"])] = r
     out.write_text(json.dumps({"cases_per_category": {k: len(v) for k, v in by_cat.items()},
-                               "results": rows}, indent=2))
+                               "results": list(merged.values())}, indent=2))
 
     ok_rows = [r for r in rows if "error" not in r]
     if ok_rows:
