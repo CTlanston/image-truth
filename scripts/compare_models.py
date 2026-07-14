@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from image_truth.checks import c3_location, c4_caption  # noqa: E402
-from image_truth.model import FAIL, PASS, UNSURE, Entry  # noqa: E402
+from image_truth.model import FAIL, UNSURE, UNVERIFIED, Entry  # noqa: E402
 from image_truth.vision import VisionClient  # noqa: E402
 
 FIXTURES = ROOT / "fixtures"
@@ -104,7 +104,7 @@ def eval_model(provider, model, by_cat, use_cache):
     for c in by_cat["location_mismatch"]:
         r = results[("loc", c["id"])]
         unsure_count += r.status == UNSURE
-        unverified += r.status == "UNVERIFIED"
+        unverified += r.status == UNVERIFIED
         if r.status == FAIL:
             loc_ok += 1
         else:
@@ -112,7 +112,7 @@ def eval_model(provider, model, by_cat, use_cache):
     for c in by_cat["caption_mismatch"]:
         r = results[("cap", c["id"])]
         unsure_count += r.status == UNSURE
-        unverified += r.status == "UNVERIFIED"
+        unverified += r.status == UNVERIFIED
         if r.status == FAIL:
             cap_ok += 1
         else:
@@ -120,7 +120,7 @@ def eval_model(provider, model, by_cat, use_cache):
     for c in by_cat["clean"]:
         r3, r4 = results[("clean_c3", c["id"])], results[("clean_c4", c["id"])]
         unsure_count += (r3.status == UNSURE) + (r4.status == UNSURE)
-        unverified += (r3.status == "UNVERIFIED") + (r4.status == "UNVERIFIED")
+        unverified += (r3.status == UNVERIFIED) + (r4.status == UNVERIFIED)
         if r3.status != FAIL and r4.status != FAIL:
             clean_ok += 1
         else:
@@ -132,6 +132,8 @@ def eval_model(provider, model, by_cat, use_cache):
     total = n_loc + n_cap + n_clean
     correct = loc_ok + cap_ok + clean_ok
 
+    if model not in PRICES:
+        print(f"   ⚠️ no price entry for {model} — cost will read $0; add it to PRICES")
     price_in, price_out = PRICES.get(model, (0.0, 0.0))
     cost = client.tokens_in / 1e6 * price_in + client.tokens_out / 1e6 * price_out
     per_call = cost / client.calls_made if client.calls_made else 0.0
@@ -168,10 +170,14 @@ def main():
                     help="cap cases per category (smoke test)")
     args = ap.parse_args()
 
-    candidates = (
-        [tuple(c.split(":", 1)) for c in args.candidates.split(",")]
-        if args.candidates else DEFAULT_CANDIDATES
-    )
+    if args.candidates:
+        candidates = []
+        for c in args.candidates.split(","):
+            if ":" not in c:
+                sys.exit(f"--candidates entries must be provider:model (got '{c}')")
+            candidates.append(tuple(c.split(":", 1)))
+    else:
+        candidates = DEFAULT_CANDIDATES
     by_cat = load_cases(args.limit)
     n = sum(len(v) for v in by_cat.values())
     print(f"comparing {len(candidates)} models on {n} cases "
@@ -182,8 +188,9 @@ def main():
         print(f"→ {provider}/{model} ...", flush=True)
         rows.append(eval_model(provider, model, by_cat, args.use_cache))
         r = rows[-1]
+        lat = f"{r['avg_latency_s']}s/call" if r.get("avg_latency_s") is not None else "cached"
         print("   " + (r.get("error") or
-              f"acc {r['accuracy']:.1%} · {r['avg_latency_s']}s/call · ${r['eval_cost_usd']} eval"))
+              f"acc {r['accuracy']:.1%} · {lat} · ${r['eval_cost_usd']} eval"))
 
     out = ROOT / "metrics" / "model_comparison.json"
     out.write_text(json.dumps({"cases_per_category": {k: len(v) for k, v in by_cat.items()},

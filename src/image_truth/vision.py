@@ -24,6 +24,7 @@ import io
 import json
 import os
 import re
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -126,6 +127,7 @@ class VisionClient:
         self.cache = Path(cache_dir or CACHE_DIR)
         self.use_cache = use_cache
         self._client = None
+        self._stats_lock = threading.Lock()  # counters are updated from worker threads
         self.calls_made = 0        # live (non-cached) API calls this process
         self.live_seconds = 0.0    # wall time spent in live calls
         self.tokens_in = 0         # actual usage reported by the API (live calls)
@@ -190,8 +192,9 @@ class VisionClient:
         )
         usage = getattr(response, "usage", None)
         if usage is not None:
-            self.tokens_in += getattr(usage, "input_tokens", 0) or 0
-            self.tokens_out += getattr(usage, "output_tokens", 0) or 0
+            with self._stats_lock:
+                self.tokens_in += getattr(usage, "input_tokens", 0) or 0
+                self.tokens_out += getattr(usage, "output_tokens", 0) or 0
         text = next(b.text for b in response.content if b.type == "text")
         return json.loads(text)
 
@@ -243,8 +246,9 @@ class VisionClient:
                     continue
                 raise RuntimeError(f"{self.provider} network error: {exc}") from exc
             usage = data.get("usage") or {}
-            self.tokens_in += usage.get("prompt_tokens", 0) or 0
-            self.tokens_out += usage.get("completion_tokens", 0) or 0
+            with self._stats_lock:
+                self.tokens_in += usage.get("prompt_tokens", 0) or 0
+                self.tokens_out += usage.get("completion_tokens", 0) or 0
             text = (data["choices"][0]["message"].get("content") or "").strip()
             parsed = _extract_verdict_json(text)
             if parsed is not None:
@@ -286,13 +290,19 @@ class VisionClient:
             out = self._ask_anthropic(b64, prompt)
         else:
             out = self._ask_openai_compatible(b64, prompt)
-        self.live_seconds += time.monotonic() - t0
-        self.calls_made += 1
+        with self._stats_lock:
+            self.live_seconds += time.monotonic() - t0
+            self.calls_made += 1
 
         answer = str(out.get("answer", "")).lower().strip()
+        conf = out.get("confidence")
+        try:
+            conf = 0.5 if conf is None else float(conf)
+        except (TypeError, ValueError):
+            conf = 0.5
         out = {
             "answer": answer if answer in ("yes", "no", "unsure") else "unsure",
-            "confidence": max(0.0, min(1.0, float(out.get("confidence", 0.5) or 0.5))),
+            "confidence": max(0.0, min(1.0, conf)),
             "reason": str(out.get("reason", ""))[:500],
         }
         self.cache.mkdir(exist_ok=True)

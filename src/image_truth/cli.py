@@ -70,7 +70,8 @@ def main(argv: list = None) -> int:
         print(
             f"image-truth: {s['total']} images — "
             f"{s['keep']} keep, {s['reject']} reject, {s['advise']} advise"
-            f"  [vision: {vision.provider}/{vision.model}]"
+            + (f"  [vision: {vision.provider}/{vision.model}]" if vision.available
+               else "  [vision: unavailable — no API key]")
         )
         for v in verdicts:
             if v.verdict == REJECT:
