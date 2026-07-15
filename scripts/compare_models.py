@@ -14,7 +14,7 @@ to the standard "60-image audit" (120 calls).
 
 Usage:
   python3 scripts/compare_models.py                      # default candidates
-  python3 scripts/compare_models.py --candidates dashscope:qwen3-vl-flash,ark:doubao-seed-1-6-vision-250815
+  python3 scripts/compare_models.py --candidates dashscope:qwen3-vl-flash,ark:doubao-seed-2-0-mini-260428
   python3 scripts/compare_models.py --use-cache          # cheap re-score, no latency data
   python3 scripts/compare_models.py --limit 10           # smoke-test subset per category
 
@@ -39,18 +39,20 @@ FIXTURES = ROOT / "fixtures"
 
 DEFAULT_CANDIDATES = [
     ("dashscope", "qwen3-vl-flash"),
-    ("ark", "doubao-seed-1-6-vision-250815"),
-    ("gemini", "gemini-2.5-flash-lite"),
+    ("ark", "doubao-seed-2-0-mini-260428"),
+    ("gemini", "gemini-3.1-flash-lite"),
     ("anthropic", "claude-haiku-4-5"),
 ]
 
-# USD per 1M tokens (input, output) — verified 2026-07; edit as prices move.
+# USD per 1M tokens (input, output) — verified 2026-07 against official pricing
+# pages; edit as prices move. CNY prices converted at 6.78 CNY/USD.
 PRICES = {
     "claude-sonnet-5": (3.00, 15.00),
     "claude-haiku-4-5": (1.00, 5.00),
-    "gemini-2.5-flash-lite": (0.10, 0.40),
-    "qwen3-vl-flash": (0.05, 0.40),
-    "doubao-seed-1-6-vision-250815": (0.11, 0.28),  # ≤200-tok-output discounted tier
+    "gemini-3.1-flash-lite": (0.25, 1.50),
+    "qwen3-vl-flash": (0.05, 0.40),           # intl ≤32k-input tier
+    "doubao-seed-2-0-mini-260428": (0.0295, 0.295),  # ¥0.2/¥2.0, ≤32k tier
+    "doubao-seed-2-0-lite-260428": (0.0885, 0.531),  # ¥0.6/¥3.6, ≤32k tier
 }
 
 WORKERS = 4

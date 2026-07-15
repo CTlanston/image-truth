@@ -56,9 +56,9 @@ of these keys and image-truth picks it up automatically:
 
 | Provider | Key env | Default model | Get a key |
 |---|---|---|---|
-| Google Gemini | `GEMINI_API_KEY` | `gemini-2.5-flash-lite` | https://aistudio.google.com/app/apikey (free tier) |
+| Google Gemini | `GEMINI_API_KEY` | `gemini-3.1-flash-lite` | https://aistudio.google.com/app/apikey (free tier) |
 | 阿里云百炼 DashScope | `DASHSCOPE_API_KEY` | `qwen3-vl-flash` | https://bailian.console.aliyun.com/?apiKey=1 |
-| 火山方舟 Ark (豆包) | `ARK_API_KEY` | `doubao-seed-1-6-vision-250815` | https://console.volcengine.com/ark |
+| 火山方舟 Ark (豆包) | `ARK_API_KEY` | `doubao-seed-2-0-mini-260428` | https://console.volcengine.com/ark |
 | Anthropic Claude | `ANTHROPIC_API_KEY` | `claude-sonnet-5` | https://console.anthropic.com/settings/keys |
 
 ```bash

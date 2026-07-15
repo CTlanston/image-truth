@@ -58,7 +58,7 @@ def test_default_models_per_provider(clean_env):
     clean_env.setenv("DASHSCOPE_API_KEY", "d")
     assert VisionClient(provider="dashscope").model == "qwen3-vl-flash"
     clean_env.setenv("GEMINI_API_KEY", "g")
-    assert VisionClient(provider="gemini").model == "gemini-2.5-flash-lite"
+    assert VisionClient(provider="gemini").model == "gemini-3.1-flash-lite"
     assert VisionClient(provider="gemini", model="claude-haiku-4-5").model == "claude-haiku-4-5"
 
 
@@ -162,6 +162,22 @@ def test_openai_path_drops_rejected_response_format(clean_env, tmp_path):
     client._openai_request = fake
     out = client.ask(_img(tmp_path), "c3", "is this X?")
     assert out["answer"] == "yes" and seen == [True, False]
+
+
+def test_ark_disables_thinking_others_do_not(clean_env, tmp_path):
+    bodies = {}
+    for provider, key in [("ark", "ARK_API_KEY"), ("dashscope", "DASHSCOPE_API_KEY")]:
+        clean_env.setenv(key, "k")
+        client = VisionClient(provider=provider, cache_dir=str(tmp_path / f"cache-{provider}"))
+
+        def fake(body, p=provider):
+            bodies[p] = body
+            return _resp('{"answer": "yes", "confidence": 0.9, "reason": "ok"}')
+
+        client._openai_request = fake
+        client.ask(_img(tmp_path), "c3", "is this X?")
+    assert bodies["ark"]["thinking"] == {"type": "disabled"}
+    assert "thinking" not in bodies["dashscope"]
 
 
 def test_anthropic_param_compat_by_model(clean_env, tmp_path):

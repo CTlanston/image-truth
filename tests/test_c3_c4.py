@@ -94,7 +94,10 @@ def test_vision_cache_hit_is_deterministic():
 
 
 def test_no_key_degrades_to_unverified(monkeypatch, tmp_path):
-    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    from image_truth.vision import PROVIDERS
+
+    for _, key_env, _, _ in PROVIDERS.values():
+        monkeypatch.delenv(key_env, raising=False)
     monkeypatch.chdir(tmp_path)  # no .env to fall back to
     client = VisionClient()
     c = _sample("clean", 1)[0]

@@ -39,16 +39,39 @@ model — bring whichever key you have; image-truth auto-detects it:
 
 | `--provider` | Key env | Default model | Notes |
 |---|---|---|---|
-| `gemini` | `GEMINI_API_KEY` | `gemini-2.5-flash-lite` | cheapest managed; AI Studio free tier covers daily audits |
-| `dashscope` | `DASHSCOPE_API_KEY` | `qwen3-vl-flash` | 阿里云百炼, mainland-China friendly, ~$0.01 per 60-image audit |
-| `ark` | `ARK_API_KEY` | `doubao-seed-1-6-vision-250815` | 火山方舟 (ByteDance Doubao) |
-| `anthropic` | `ANTHROPIC_API_KEY` | `claude-sonnet-5` | highest verified accuracy; `--model claude-haiku-4-5` for 3× cheaper |
+| `gemini` | `GEMINI_API_KEY` | `gemini-3.1-flash-lite` | fastest measured; AI Studio free tier covers daily audits |
+| `dashscope` | `DASHSCOPE_API_KEY` | `qwen3-vl-flash` | 阿里云百炼; intl accounts set `IMAGE_TRUTH_BASE_URL` (see quickstart) |
+| `ark` | `ARK_API_KEY` | `doubao-seed-2-0-mini-260428` | 火山方舟 (ByteDance Doubao) — cheapest measured |
+| `anthropic` | `ANTHROPIC_API_KEY` | `claude-sonnet-5` | the model the G3 gate was scored on; `--model claude-haiku-4-5` for 3× cheaper |
 
 Every response is cached by image content hash, so re-runs are reproducible
 and free. **No API key? C3/C4 report `UNVERIFIED` and the rest of the gate
-still runs** — they never fake a verdict. Accuracy note: the 100% G3 score
-below was measured on `claude-sonnet-5`; benchmark alternatives on your own
-manifests with `scripts/compare_models.py` before switching a CI gate.
+still runs** — they never fake a verdict.
+
+### Which model? (measured, July 2026)
+
+Each row is 140 live calls over the 70 vision-labeled fixture cases
+(25 wrong-location + 20 wrong-caption + 25 clean), scored with the same
+semantics as the CI gate. Reproduce with `scripts/compare_models.py`:
+
+| model | accuracy | mismatches caught | clean false-alarms | s/call¹ | $/60-image audit² |
+|---|---|---|---|---|---|
+| gemini-3.1-flash-lite | **100%** | 45/45 | 0 | 1.8 | $0.046 |
+| qwen3-vl-flash | **100%** | 45/45 | 0 | 3.3 | $0.010 |
+| doubao-seed-2.0-mini | **100%** | 45/45 | 0 | 11.1¹ | $0.007 |
+| doubao-seed-2.0-lite | **100%** | 45/45 | 0 | 12.4¹ | $0.020 |
+| claude-sonnet-5 (default) | **100%** | 45/45 | 0 | ~4.5 | $0.68 |
+| claude-haiku-4-5 | 92.9% | 44/45 | 4 | 3.2 | $0.24 |
+
+¹ Latency measured from California; the Doubao endpoint is in Beijing, so
+most of its 11–12 s is cross-border round-trip, not inference.
+² From the usage tokens each API actually reported, at official list prices
+(CNY converted at 6.78/USD). Full data: `metrics/model_comparison.json`.
+
+Practical picks: **gemini-3.1-flash-lite** overseas, **qwen3-vl-flash** from
+mainland China, `claude-sonnet-5` if you'd rather pay for the most
+battle-tested option (it's the model the 360-evaluation G3 gate was scored
+on). Haiku is not worth it here: 4 of its 25 clean cases false-alarmed.
 
 ## Sample report
 

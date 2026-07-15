@@ -3,7 +3,7 @@
 Providers (pick with --provider / IMAGE_TRUTH_PROVIDER, or auto-detected from
 whichever API key is configured):
 
-  gemini     Google gemini-2.5-flash-lite   GEMINI_API_KEY      (overseas default)
+  gemini     Google gemini-3.1-flash-lite   GEMINI_API_KEY      (overseas default)
   dashscope  Alibaba qwen3-vl-flash         DASHSCOPE_API_KEY   (China)
   ark        ByteDance doubao seed vision   ARK_API_KEY         (China)
   anthropic  claude-sonnet-5 / haiku-4-5    ANTHROPIC_API_KEY   (quality upgrade)
@@ -39,7 +39,7 @@ PROVIDERS = {
     "anthropic": (None, "ANTHROPIC_API_KEY", "claude-sonnet-5", "anthropic"),
     "gemini": (
         "https://generativelanguage.googleapis.com/v1beta/openai",
-        "GEMINI_API_KEY", "gemini-2.5-flash-lite", "openai",
+        "GEMINI_API_KEY", "gemini-3.1-flash-lite", "openai",
     ),
     "dashscope": (
         "https://dashscope.aliyuncs.com/compatible-mode/v1",
@@ -47,7 +47,7 @@ PROVIDERS = {
     ),
     "ark": (
         "https://ark.cn-beijing.volces.com/api/v3",
-        "ARK_API_KEY", "doubao-seed-1-6-vision-250815", "openai",
+        "ARK_API_KEY", "doubao-seed-2-0-mini-260428", "openai",
     ),
 }
 # auto-detect order when no provider is named: first configured key wins
@@ -228,6 +228,10 @@ class VisionClient:
                 ],
             }],
         }
+        if self.provider == "ark":
+            # doubao seed models think by default (~2× output tokens for a
+            # yes/no verdict); Ark accepts an explicit off switch
+            body["thinking"] = {"type": "disabled"}
         last_exc = None
         for attempt in range(len(RETRY_DELAYS) + 1):
             try:
